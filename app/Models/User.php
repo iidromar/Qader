@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Couchbase\RegexpSearchQuery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'company_name'
     ];
 
     /**
@@ -42,4 +44,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function courses_created(){
+        return $this->hasMany(Course::class, 'creator');
+    }
+    public function courses_requested(){
+        return $this->belongsToMany(Course::class, 'course_requested', 'admin_id', 'course_id');
+    }
+    public function courses_taken(){
+        return $this->belongsToMany(Course::class, 'course_taken_by', 'employee_id', 'course_id');
+    }
+    public function company(){
+        return $this->belongsTo(Company::class, 'admin');
+    }
+
+
 }

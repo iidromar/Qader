@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default('0');
+            $table->foreignId('company_for_employee')->references('id')->on('companies')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -20,7 +20,7 @@ use \App\Http\Controllers\AuthorizationController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/test', [App\Http\Controllers\testController::class, 'test']);
 
 Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 Route::get('/gate', [AuthorizationController::class, 'index'])->name('gate')->middleware('can:isCompanyAdmin');

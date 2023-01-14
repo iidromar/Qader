@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->foreignId('admin')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -28,4 +30,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('companies');
     }
+
 };
