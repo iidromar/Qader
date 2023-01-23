@@ -32,7 +32,7 @@ class CompanyAdminController extends Controller
 //               $cc = array_add($temp, $key, $value);
 //           }
        }
-
+//
        dd($temp);
        return view('CompanyAdmin.employee_progress', compact('temp'));
    }
