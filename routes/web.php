@@ -21,11 +21,14 @@ use \App\Http\Controllers\AuthorizationController;
 |
 */
 Route::get('/test', [App\Http\Controllers\testController::class, 'test']);
+Auth::routes();
 
 Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 Route::get('/gate', [AuthorizationController::class, 'index'])->name('gate')->middleware('can:isCompanyAdmin');
 
-Auth::routes();
+Route::get('/CompanyEmployees', [CompanyAdminController::class, 'all_employees'])->name('all_employees');
+Route::get('/CompanyAdminDashboard', [CompanyAdminController::class, 'index'])->name('index');
+Route::get('/CompanyAdminEmployee/{id?}', [CompanyAdminController::class, 'employee_progress'])->name('employee_progress');
 
 Route::group(['middleware'=>'guest'],function(){
 Route::get('Institlogin',[InstitAuthController::class,'index'])->name('Institlogin');

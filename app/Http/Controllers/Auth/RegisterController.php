@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -62,13 +65,27 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
+
+    protected $dumb;
+    protected $ss;
+    protected $rr;
     protected function create(array $data)
     {
-        return User::create([
+        $this->rr = Str::upper(Str::random(16));
+        $this->ss = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => '1',
+            'code' => $this->rr,
         ]);
+        $this->dumb = User::select('id')->where('email', $data['email'])->first()->id;
+
+        Company::create([
+            'name'=> $data['cname'],
+            'admin'=>$this->dumb,
+            'code' => $this->rr,
+        ]);
+        return $this->ss;
     }
 }

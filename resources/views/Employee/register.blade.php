@@ -1,6 +1,11 @@
 @extends('layouts.EmployeeAuthLayouts')
 
 @section('content')
+    @if(session()->has('Error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>{{ session()->get('Error') }}</strong>
+        </div>
+    @endif
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -38,7 +43,58 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row mb-3">
+                                <label for="ccname" class="col-md-4 col-form-label text-md-end">Company ID:</label>
 
+                                <div class="col-md-6">
+                                    <input id="ccname" type="text" class="form-control @error('ccname') is-invalid @enderror" name="ccname" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                    @error('ccname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="position" class="col-md-4 col-form-label text-md-end">Position:</label>
+
+                                <div class="col-md-6">
+                                    <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="" required autocomplete="position">
+
+                                    @error('position')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="office" class="col-md-4 col-form-label text-md-end">Office Location:</label>
+
+                                <div class="col-md-6">
+                                    <input id="office" type="text" class="form-control @error('office') is-invalid @enderror" name="office" value="" required autocomplete="office">
+
+                                    @error('office')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="age" class="col-md-4 col-form-label text-md-end">Age:</label>
+
+                                <div class="col-md-6">
+                                    <input id="age" type="number" class="form-control @error('age') is-invalid @enderror" name="age" value="" required autocomplete="age">
+
+                                    @error('age')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="row mb-3">
                                 <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 

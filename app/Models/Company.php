@@ -12,6 +12,7 @@ class Company extends Model
     protected $fillable = [
         'name',
         'admin',
+        'code',
     ];
     public function employees(){
         return $this->hasMany(User::class);

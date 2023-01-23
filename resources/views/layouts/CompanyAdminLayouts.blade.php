@@ -1,7 +1,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')}}" rel="stylesheet">
+<link href="{{ asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
+<link href="{{ asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+<link href="{{ asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
+<link href="{{ asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 <head>
 
     <meta charset="utf-8">
@@ -45,7 +50,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ route('index') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -68,6 +73,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Options:</h6>
+                    <a class="collapse-item" href="{{ route('all_employees') }}">All Employees</a>
                     <a class="collapse-item" href="buttons.html">Track Progress</a>
                     <a class="collapse-item" href="cards.html">Track Achievements</a>
                 </div>
@@ -433,6 +439,25 @@
 <script src={{ asset('CompanyAdminFrontend/js/demo/chart-area-demo.js') }}></script>
 <script src={{ asset('CompanyAdminFrontend/js/demo/chart-pie-demo.js') }}></script>
 
+    <!-- Internal Data tables -->
+    <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/dataTables.dataTables.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/responsive.dataTables.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/jszip.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/pdfmake.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/vfs_fonts.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/buttons.html5.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/buttons.print.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/buttons.colVis.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
+    <!--Internal  Datatable js -->
+    <script src="{{ asset('assets/js/table-data.js')}}"></script>
 </body>
 
 </html>

@@ -1,7 +1,5 @@
-
-    @extends('layouts.CompanyAdminLayouts')
-
-    @can('isCompanyAdmin')
+@extends('layouts.CompanyAdminLayouts')
+@can('isCompanyAdmin')
 @section('content')
 
 
@@ -335,4 +333,4 @@
 
 
 @endsection
-    @endcan
+@endcan

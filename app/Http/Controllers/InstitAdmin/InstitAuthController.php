@@ -53,6 +53,7 @@ class InstitAuthController extends Controller
             'email'=>$request->email,
             'password'=> \Hash::make($request->password),
             'role' => '2',
+            'code' => 0,
         ]);
 
         // login user here
