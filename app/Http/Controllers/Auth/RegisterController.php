@@ -77,7 +77,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'role' => '1',
-            'code' => $this->rr,
+            'code' => $this->rr
         ]);
         $this->dumb = User::select('id')->where('email', $data['email'])->first()->id;
 
