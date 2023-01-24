@@ -14,6 +14,7 @@ class course extends Model
         'course_date',
         'description',
         'creator',
+        'category',
     ];
 
  public function creator(){

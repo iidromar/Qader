@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Middleware\CompanyAdmin;
 use \App\Http\Controllers\CompanyAdmin\CompanyAdminController;
 use \App\Http\Middleware\InstitAdmin;
-use \App\Http\Controllers\CompanyAdmin\InstitAdminController;
+use \App\Http\Controllers\InstitAdmin\InstitAdminController;
 use \App\Http\Controllers\InstitAdmin\InstitAuthController;
 use \App\Http\Controllers\Employee\EmployeeAuthController;
 use \App\Http\Controllers\AuthorizationController;
@@ -29,6 +29,17 @@ Route::get('/gate', [AuthorizationController::class, 'index'])->name('gate')->mi
 Route::get('/CompanyEmployees', [CompanyAdminController::class, 'all_employees'])->name('all_employees');
 Route::get('/CompanyAdminDashboard', [CompanyAdminController::class, 'index'])->name('index');
 Route::get('/CompanyAdminEmployee/{id?}', [CompanyAdminController::class, 'employee_progress'])->name('employee_progress');
+
+
+Route::get('/createCourse', [InstitAdminController::class , 'create'])->name('Instit.createCourse');
+Route::post('/Instit/storeCourse', [InstitAdminController::class , 'store'])->name('Instit.storeCourse');
+Route::get('/allCorses', [InstitAdminController::class , 'allCourses'])->name('Instit.allCourses');
+Route::get('/Instit/editCorse/{id}' , [InstitAdminController::class , 'edit'])->name('Instit.edit');
+Route::PUT('/Instit/updateCourse/{id}' , [InstitAdminController::class , 'update'])->name('Instit.update');
+Route::get('/Instit/showCourse/{id}', [InstitAdminController::class , 'show'])->name('Instit.show');
+Route::delete('delete/course/{id}' ,  [InstitAdminController::class , 'destroy'])->name('course.destroy');
+Route::delete('delete/lesson/{id}' ,  [InstitAdminController::class , 'destroyLesson'])->name('lesson.destroy');
+
 
 Route::group(['middleware'=>'guest'],function(){
 Route::get('Institlogin',[InstitAuthController::class,'index'])->name('Institlogin');
