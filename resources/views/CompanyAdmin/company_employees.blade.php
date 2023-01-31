@@ -13,7 +13,9 @@
                     <div class="card mg-b-20">
                         <div class="card-header pb-0">
                             <div class="d-flex justify-content-between">
-                                <h4 class="card-title mg-b-0">Company Employees</h4>
+
+                                    <h4 class="card-title mg-b-0"><strong>{{ $comp->name }}</strong> Employees</h4>
+
                                 <i class="mdi mdi-dots-horizontal text-gray"></i>
                             </div>
                             <p class="tx-12 tx-gray-500 mb-2">Your Company Unique ID is: <strong>{{ \Illuminate\Support\Facades\Auth::user()->code }}</strong>, please give it to your employees when they register.</p>
@@ -29,8 +31,8 @@
                                         <th class="border-bottom-0">Office</th>
                                         <th class="border-bottom-0">Age</th>
                                         <th class="border-bottom-0">Registration date</th>
-                                        <th class="border-bottom-0">Progress</th>
-                                        <th class="border-bottom-0">New Training</th>
+                                        <th class="border-bottom-0">Courses taken</th>
+                                        <th class="border-bottom-0">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -45,7 +47,7 @@
                                             <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{ route('employee_progress', [$e->id]) }}">View</a>
                                         </td>
                                         <td>
-                                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{ route('employee_progress') }}">Add</a>
+                                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{ route('give_training', [$e->id]) }}">Add Training</a>
                                         </td>
 
                                     </tr>

@@ -17,15 +17,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,400i,500,500i,600,700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('InstitAdmin/css/studiare-assets.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('InstitAdmin/css/style.css') }}">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
-    @yield('styles')
+        @yield('styles')
     <!-- Custom styles for this template-->
     <link href="{{ asset('CompanyAdminFrontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -76,12 +68,26 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('Instit.allCourses')}}">All courses</a>
                     <a class="collapse-item" href="{{route('Instit.createCourse')}}">Create a course</a>
-
+                   
                 </div>
             </div>
         </li>
 
-
+ <!-- Nav Item - Pages Collapse Menu -->
+ <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+               aria-expanded="true" aria-controls="collapseThree">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>Quizzes</span>
+            </a>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="{{route('course.question')}}">All Questions</a>
+                    <a class="collapse-item" href="{{route('course.option')}}">All Options</a>
+                   
+                </div>
+            </div>
+        </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
@@ -91,7 +97,7 @@
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
 
-
+       
 
     </ul>
     <!-- End of Sidebar -->
@@ -373,61 +379,7 @@
     <!-- Page level custom scripts -->
     <script src="CompanyAdminFrontend/js/demo/chart-area-demo.js"></script>
     <script src="CompanyAdminFrontend/js/demo/chart-pie-demo.js"></script>
-    <script src="{{ asset('InstitAdmin/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('InstitAdmin/js/gmap3.min.js') }}"></script>
-    <script src="{{ asset('InstitAdmin/js/jquery.countTo.js') }}"></script>
-    <script src="{{ asset('InstitAdmin/js/popper.js') }}"></script>
-    <script src="{{ asset('InstitAdmin/js/script.js') }}"></script>
-    <script src="{{ asset('InstitAdmin/js/studiare-plugins.min.js') }}"></script>
-    <script src="http://maps.google.com/maps/api/js?key=AIzaSyCiqrIen8rWQrvJsu-7f4rOta0fmI5r2SI&amp;sensor=false&amp;language=en"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"> </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"> </script>
-    <script>
-        $(function () {
-            var duplicates = 0,
-
-                $original = $('.lesson-content').clone(true);
-
-            function DuplicateForm () {
-                var newForm;
-
-                duplicates++;
-                newForm = $original.clone(true).insertBefore($('h1'));
-
-
-
-                $.each($('input', newForm), function(i, item) {
-                    $(item).attr('name', $(item).attr('name') + duplicates);
-                });
-
-
-                $('<h5>Lesson ' + (duplicates + 1) + '</h5>'+
-                    ' <div class="form-group">'+
-                    '<label for="exampleInputName1">Title</label>'+
-                    '<input type="text" name="title[]" class="form-control" id="exampleInputName1" placeholder="Title">'+
-                    ' </div>'+
-                    ' <div class="form-group">'+
-                    '<label for="exampleTextarea1">Description</label>'+
-                    '<textarea class="form-control" name="des[]" id="exampleTextarea1" placeholder="Description" rows="4"></textarea>'+
-                    ' </div>'+
-                    ' <div class="form-group">'+
-                    '<label for="exampleInputName1">Video</label>'+
-                    '<input type="file" class="form-control" name="files[]" id="exampleInputName1" placeholder="Video">'+
-                    ' </div>'
-                ).insertBefore(newForm);
-
-            }
-
-            $('a[href="add-new-form"]').on('click', function (e) {
-                e.preventDefault();
-                DuplicateForm();
-
-
-            });
-        });
-    </script>
-@yield('scripts')
+    @yield('scripts')
 </body>
 
 </html>

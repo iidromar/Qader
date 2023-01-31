@@ -28,7 +28,9 @@ class InstitAdminController extends Controller
     }
     public function create()
     {
-        return view('InstitAdmin.createCourse');
+        $options = Course::getPossibleCategories();
+
+        return view('InstitAdmin.createCourse', compact('options'));
     }
 
     /**
@@ -40,6 +42,7 @@ class InstitAdminController extends Controller
     public function store(Request $request)
     {
         $check=$request->all();
+
         if( isset($check['names'])){
             $request->validate([
                 'name'=>['required' , 'string','max:255'],
@@ -71,23 +74,25 @@ class InstitAdminController extends Controller
                 'category'=>$request->category,
                 'creator'=>auth()->id(),
                 'course_date'=> $request->course_date,
+                'price' => $request->price,
             ]);
             //add lesson info
             $id=$course->id;
             $input = $request->all();
-
-            $condition = $input['names'];
-            foreach ($condition as $key => $condition) {
-                $lesson = new lesson;
-                $lesson->course_id=$id;
-                $file=$input['file'][$key];
-                $fileName= rand(100 , 1000000) . time() . $file->getClientOriginalName();;
-                $filePath=public_path('/storage/instit/courses');
-                $file->move($filePath,$fileName);
-                $lesson->video=$fileName;
-                $lesson->names = $input['names'][$key];
-                $lesson->descriptions = $input['descriptions'][$key];
-                $lesson->save();
+            if( isset($input['names'])) {
+                $condition = $input['names'];
+                foreach ($condition as $key => $condition) {
+                    $lesson = new lesson;
+                    $lesson->course_id = $id;
+                    $file = $input['file'][$key];
+                    $fileName = rand(100, 1000000) . time() . $file->getClientOriginalName();;
+                    $filePath = public_path('/storage/instit/courses');
+                    $file->move($filePath, $fileName);
+                    $lesson->video = $fileName;
+                    $lesson->names = $input['names'][$key];
+                    $lesson->descriptions = $input['descriptions'][$key];
+                    $lesson->save();
+                }
             }
             DB::commit();
             $request->Session()->flash('alert-success' , 'Course Created Successfully');
@@ -105,7 +110,8 @@ class InstitAdminController extends Controller
 
         $lessons=lesson::where('course_id' , $id)->get();
         $courses=course::find($id);
-        return view('InstitAdmin.editCourse' )->with('courses' , $courses)->with('lessons' , $lessons);
+        $options = Course::getPossibleCategories();
+        return view('InstitAdmin.editCourse' )->with('courses' , $courses)->with('lessons' , $lessons)->with('options', $options);
 
     }
 
@@ -142,6 +148,7 @@ class InstitAdminController extends Controller
                 'description'=>$request->description,
                 'category'=>$request->category,
                 'course_date'=> $request->course_date,
+                'price' => $request->price,
             ]);
 
             $data=$request->all();

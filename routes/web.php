@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Employee\EmployeeController;
 use App\Http\Controllers\Home\HomePageController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Middleware\CompanyAdmin;
@@ -9,6 +10,15 @@ use \App\Http\Controllers\InstitAdmin\InstitAdminController;
 use \App\Http\Controllers\InstitAdmin\InstitAuthController;
 use \App\Http\Controllers\Employee\EmployeeAuthController;
 use \App\Http\Controllers\AuthorizationController;
+
+
+
+////new
+use \App\Http\Controllers\CompanyAdmin\ResultController;
+use \App\Http\Controllers\InstitAdmin\QuestionController;
+use \App\Http\Controllers\InstitAdmin\OptionController;
+use \App\Http\Controllers\InstitAdmin\TestController;
+///new
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +39,11 @@ Route::get('/gate', [AuthorizationController::class, 'index'])->name('gate')->mi
 Route::get('/CompanyEmployees', [CompanyAdminController::class, 'all_employees'])->name('all_employees');
 Route::get('/CompanyAdminDashboard', [CompanyAdminController::class, 'index'])->name('index');
 Route::get('/CompanyAdminEmployee/{id?}', [CompanyAdminController::class, 'employee_progress'])->name('employee_progress');
+Route::get('/NewTraining/{id?}', [CompanyAdminController::class, 'give_training'])->name('give_training');
+Route::get('/CategoryItems/{cat?}', [CompanyAdminController::class, 'give_items'])->name('give_items');
+Route::get('/ItemPrice/{item?}', [CompanyAdminController::class, 'give_price'])->name('give_price');
+Route::post('/sendTraining/{id?}', [CompanyAdminController::class, 'new_training_req'])->name('new_training_req');
+Route::get('/CourseBrief/{item?}', [CompanyAdminController::class, 'give_brief'])->name('give_brief');
 
 
 Route::get('/createCourse', [InstitAdminController::class , 'create'])->name('Instit.createCourse');
@@ -63,5 +78,52 @@ Route::post('Employeeregister',[EmployeeAuthController::class,'register'])->name
 //Route::middleware(['auth', 'InstitAdmin'])->name('InstitAdmin.')->prefix('InstitAdmin')->group(function(){
 //    Route::get('/', [InstitAdminController::class, 'index'])->name('index');
 //});
+
+
+Route::get('calendar/index/{id?}', [EmployeeController::class, 'calendarIndex'])->name('calendar.index');
+//Route::get('setCalendar', [CompanyAdminController::class, 'setCalenderIndex'])->name('setCalenderIndex');
+//Route::post('calendar', [CompanyAdminController::class, 'store'])->name('calendar.store');
+Route::patch('calendar/update/{id}', [EmployeeController::class, 'update'])->name('calendar.update');
+Route::delete('calendar/destroy/{id}', [EmployeeController::class, 'destroy'])->name('calendar.destroy');
+
+
+
+///new
+// questions
+Route::get('/allQuestion', [QuestionController::class , 'index'])->name('course.question');
+Route::get('/createQuestion', [QuestionController::class , 'create'])->name('create.question');
+Route::post('/storeQuestion', [QuestionController::class , 'store'])->name('store.question');
+Route::get('/editQuestion/{id}', [QuestionController::class , 'edit'])->name('edit.question');
+Route::PUT('/updateQuestion/{id}' , [QuestionController::class , 'update'])->name('update.question');
+Route::delete('/deleteQuestion/{id}' ,  [QuestionController::class , 'destroy'])->name('delete.question');
+
+// options
+Route::get('/allOption', [OptionController::class , 'index'])->name('course.option');
+Route::get('/createOption', [OptionController::class , 'create'])->name('create.option');
+Route::post('/storeOption', [OptionController::class , 'store'])->name('store.option');
+Route::get('/editOption/{id}', [OptionController::class , 'edit'])->name('edit.option');
+Route::PUT('/updateOption/{id}' , [OptionController::class , 'update'])->name('update.option');
+Route::delete('/deleteOption/{id}' ,  [OptionController::class , 'destroy'])->name('delete.option');
+
+
+// results
+Route::get('/allResult', [ResultController::class , 'index'])->name('course.result');
+Route::get('/createResult', [ResultController::class , 'create'])->name('create.Result');
+Route::post('/storeResult', [ResultController::class , 'store'])->name('store.Result');
+Route::get('/editResult/{id}', [ResultController::class , 'edit'])->name('edit.Result');
+Route::PUT('/updateResult/{id}' , [ResultController::class , 'update'])->name('update.Result');
+Route::delete('/deleteResultn/{id}' ,  [ResultController::class , 'destroy'])->name('delete.Result');
+Route::get('/showResult/{id}', [ResultController::class , 'show'])->name('show.Result');
+
+//Employee results
+Route::get('/employeeResult', [EmployeeController::class , 'employeeResult'])->name('employee.result');
+Route::get('/showEmployeeResult/{id}', [EmployeeController::class , 'showResult'])->name('showEmployee.Result');
+
+
+Route::get('/test2/{id}',[TestController::class, 'index'])->name('client.test');
+Route::post('test',[TestController::class, 'store'])->name('client.test.store');
+
+
+///new
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

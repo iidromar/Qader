@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Question;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +14,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lessons', function (Blueprint $table) {
+        if(!Schema::hasTable('options')){
+            Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->references('id')->on('courses')->cascadeOnDelete();
-            $table->text('video');
-            $table->string('names');
-            $table->string('descriptions', 255);
+            $table->foreignId('question_id')->references('id')->on('questions')->cascadeOnDelete();
+            $table->longText('option_text');
+            $table->integer('points')->nullable();
             $table->timestamps();
         });
-    }
+    }}
 
     /**
      * Reverse the migrations.
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lessons');
+        Schema::dropIfExists('options');
     }
-};
+}

@@ -60,6 +60,10 @@ class User extends Authenticatable
     public function company(){
         return $this->belongsTo(Company::class, 'admin');
     }
+    public function userResults()
+    {
+        return $this->hasMany(Result::class);
+    }
 
 
 }

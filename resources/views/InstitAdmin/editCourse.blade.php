@@ -44,14 +44,28 @@
                         <label for="exampleTextarea1">Description</label>
                         <textarea class="form-control" name="description" value="" id="exampleTextarea1" placeholder="Description" rows="4">{{old('description') ?? $courses->description}} </textarea>
                       </div>
-                      <div class="form-group">
-                        <label for="exampleInputName1">Category</label>
-                        <input type="text" class="form-control" name="category" value="{{old('category') ?? $courses->category}} "  id="exampleInputName1" placeholder="Title">
-                      </div>
+                       <div class="form-group">
+                           <label for="exampleInputName1">Category</label>
+                           <select name="category" class="form-control SelectBox" id="exampleInputName1" onclick="" onchange="" required>
+                               <option value="{{old('category') ?? $courses->category}} " selected>
+                                   {{old('category') ?? $courses->category}}
+                               </option>
+                               @foreach($options as $o)
+                                   @if($o != $courses->category)
+                                   <option value="{{ $o }}">{{ $o }}
+                                   </option>
+                                   @endif
+                               @endforeach
+                           </select>
+                       </div>
                       <div class="form-group">
                         <label for="exampleInputName1">Course date</label>
                         <input type="date"  name="course_date"  value="{{ old('course_date', date($courses->course_date)) }}" class="form-control" id="exampleInputName1" >
                       </div>
+                       <div class="form-group">
+                           <label for="exampleInputName1">Price</label>
+                           <input type="number" class="form-control" value="{{ old('price', $courses->price) }}"name="price" id="exampleInputName1" placeholder="Price">
+                       </div>
 
                       @if( $lessons->count()>0)
 

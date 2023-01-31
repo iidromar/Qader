@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('course_date');
-            $table->string('category');
-            $table->string('description');
+            $table->enum('category', ['IT', 'Sales', 'Marketing', 'Management', 'HR', 'Operations', 'Finance', 'Accounting', 'Public Relations', 'Research']);
+            $table->string('description', 255);
             $table->foreignId('creator')->references('id')->on('users')->cascadeOnDelete();
+            $table->integer('price')->default('0');
             $table->timestamps();
         });
     }

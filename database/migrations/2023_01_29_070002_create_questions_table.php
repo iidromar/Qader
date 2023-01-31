@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +14,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('course_taken_by', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('employee_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('course_id')->references('id')->on('courses')->cascadeOnDelete();
-            $table->string('progress')->default('0');
-            $table->date('deadline');
+            $table->longText('question_text');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('course_taken_by');
+        Schema::dropIfExists('questions');
     }
-};
+}

@@ -10,7 +10,7 @@
                 <div class="card mg-b-20">
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Employee Progress</h4>
+                            <h4 class="card-title mg-b-0">{{ $employee->name }}'s Progress</h4>
                             <i class="mdi mdi-dots-horizontal text-gray"></i>
                         </div>
                         <p class="tx-12 tx-gray-500 mb-2">You can filter the results by search input</p>
@@ -27,24 +27,26 @@
                                     <th class="border-bottom-0">Percentage Done</th>
                                     <th class="border-bottom-0">Deadline</th>
                                     <th class="border-bottom-0">Price</th>
-                                    <th class="border-bottom-0">Notes</th>
+                                    <th class="border-bottom-0">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($temp as $t)
+                                {{ $c = 0 }}
+                                @foreach($related as $r)
                                 <tr>
-                                    <td>{{ $t-> }}</td>
-                                    <td>{{$id}}</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
+                                    <td>{{ $employee->name }}</td>
+                                    <td>{{ $r->name }}</td>
+                                    <td>{{ $time[$c] }}</td>
+                                    <td>{{ $progress[$c]}}%</td>
+                                    <td>{{ $deadline[$c] }}</td>
+                                    <td>{{ $r->price }}</td>
+
                                     <td>
                                         <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">View</a>
                                     </td>
-                                    <td>
-                                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">-</a>
-                                    </td>
+
                                 </tr>
+                                    {{ $c = $c +1 }}
                                 @endforeach
                                 </tbody>
                                 <tfoot>

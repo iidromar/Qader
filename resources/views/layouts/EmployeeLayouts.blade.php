@@ -10,7 +10,14 @@
     <meta name="author" content="">
 
     <title>Employee - Dashboard</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Custom fonts for this template-->
 
     <link href="{{ asset('CompanyAdminFrontend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
@@ -20,7 +27,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('CompanyAdminFrontend/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
+    @yield('styles')
 </head>
 
 <body id="page-top">
@@ -59,15 +66,21 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            <a class="nav-link collapsed" href="{{ route('calendar.index', ['id' => \Illuminate\Support\Facades\Auth::user()->id]) }}" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>Components</span>
+                <span>calender</span>
+            </a>
+
+            <a class="nav-link collapsed" href="{{ route('calendar.index', ['id' => \Illuminate\Support\Facades\Auth::user()->id]) }}" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>fff</span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-header" href="">calender</a>
                     <h6 class="collapse-header">Custom Components:</h6>
-                    <a class="collapse-item" href="buttons.html">Buttons</a>
                     <a class="collapse-item" href="cards.html">Cards</a>
                 </div>
             </div>
@@ -416,21 +429,77 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="CompanyAdminFrontend/vendor/jquery/jquery.min.js"></script>
-    <script src="CompanyAdminFrontend/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../CompanyAdminFrontend/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var booking = @json($events);
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev, next today',
+                    center: 'title',
+                    right: 'month, agendaWeek, agendaDay',
+                },
+                events: booking,
+
+            });
+            $('.fc-event').css('background-color', 'red');
+        });
+
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var booking = @json($events);
+
+            for( i=0; i < booking.length; i++){
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                var end_date = moment(booking[i]['end']).format('YYYY-MM-DD');
+                today = yyyy + '-' + mm + '-' + dd;
+                var id = booking[i]['id'];
+                if(end_date<today){
+                    $.ajax({
+                        url:"{{ route('calendar.destroy', '') }}" +'/'+ id,
+                        type:"DELETE",
+                        dataType:'json',
+                        success:function(response)
+                        {
+                            $('#calendar').fullCalendar('removeEvents', response);
+                        },
+                        error:function(error)
+                        {
+                            console.log(error)
+                        },
+                    });
+                }
+            }
+        });
+    </script>
     <!-- Core plugin JavaScript-->
-    <script src="CompanyAdminFrontend/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../../CompanyAdminFrontend/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="CompanyAdminFrontend/js/sb-admin-2.min.js"></script>
+    <script src="../../CompanyAdminFrontend/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="CompanyAdminFrontend/vendor/chart.js/Chart.min.js"></script>
+    <script src="../../CompanyAdminFrontend/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="CompanyAdminFrontend/js/demo/chart-area-demo.js"></script>
-    <script src="CompanyAdminFrontend/js/demo/chart-pie-demo.js"></script>
+    <script src="../../CompanyAdminFrontend/js/demo/chart-area-demo.js"></script>
+    <script src="../../CompanyAdminFrontend/js/demo/chart-pie-demo.js"></script>
+@yield('scripts')
 
 </body>
 
