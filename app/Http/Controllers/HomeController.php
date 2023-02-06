@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\course;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -56,9 +57,31 @@ class HomeController extends Controller
         $vat = $invoices + $vat;
         $invoices = number_format($invoices, 2);
         $vat = number_format($vat, 2);
+        $data_requested = DB::table('course_requested')->where('admin_id', '=', Auth::user()->id)->get()->count();
 
+        $progTotal = 0;
+        $numOfEmp = 0;
+        $my_employees = User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get();
+        if($my_employees){
+            foreach ($my_employees as $e){
+                $te = DB::table('course_taken_by')->where('employee_id', '=', $e->id)->get();
+                if($te){
+                    foreach ($te as $to){
+                        $numOfEmp++;
+                        $progTotal = $progTotal + $to->progress;
+                    }
+                }
+            }
+        }
+        if($numOfEmp){
+            $calcProg = ($progTotal / $numOfEmp);
+        }
+        else{
+            $calcProg = 0;
+        }
+        $totemp =  User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get()->count();
 
-        return view('CompanyAdmin.dashboard', compact( 'invoices', 'counter_of_courses_scheduled', 'vat'));
+        return view('CompanyAdmin.dashboard', compact( 'invoices', 'counter_of_courses_scheduled', 'vat', 'data_requested', 'calcProg', 'totemp'));
     }
 
 }

@@ -25,14 +25,12 @@ class EmployeeController extends Controller
         $events = array();
         $bookings = DB::table('course_taken_by')->where('employee_id', $id)->get();
         foreach($bookings as $booking) {
-
             $c_name = DB::table('courses')->where('id', $booking->course_id)->get()->first();
             $events[] = [
                 'id'   => $booking->id,
                 'title' => $c_name->name,
                 'start' => $booking->deadline,
                 'end' => $booking->deadline,
-
             ];
         }
         return view('Employee.calendar', ['events' => $events]);

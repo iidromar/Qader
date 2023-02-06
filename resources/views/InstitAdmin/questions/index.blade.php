@@ -13,14 +13,14 @@
         <div class="card">
             <div class="card-header py-3 d-flex">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    {{ __('question') }}
+                    {{ __('Quizzes') }}
                 </h6>
                 <div class="ml-auto">
-                    <a href="{{route('course.question')}}" class="btn btn-primary">
+                    <a href="{{ route('create.question') }}" class="btn btn-primary">
                         <span class="icon text-white-50">
                             <i class="fa fa-plus"></i>
                         </span>
-                        <span class="text">{{ __('New question') }}</span>
+                        <span class="text">{{ __('New Quiz') }}</span>
                     </a>
                 </div>
             </div>
@@ -34,25 +34,25 @@
                                 </th>
                                 <th>No</th>
                                 <th>Course Name</th>
-                                <th>Question Text</th>
+                                <th>Quiz Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($questions as $question)
-                            <tr data-entry-id="{{ $question->id }}">
+                            @forelse($quizs as $quiz)
+                            <tr data-entry-id="{{ $quiz->id }}">
                                 <td>
 
                                 </td>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $question->course->name }}</td>
-                                <td>{{ $question->question_text }}</td>
+                                <td>{{ $quiz->course->name }}</td>
+                                <td>{{ $quiz->name }}</td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
-                                        <a href="{{route('edit.question' ,$question->id)}}" class="btn btn-info">
+                                        <a href="{{route('edit.question' ,$quiz->id)}}" class="btn btn-info">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>
-                                        <form onclick="return confirm('are you sure ? ')" class="d-inline" action="{{ route('delete.question' ,  $question->id) }}" method="POST">
+                                        <form onclick="return confirm('are you sure ? ')" class="d-inline" action="{{route('delete.question' ,$quiz->id)}}" method="POST">
                                         @method('Delete')
                           @csrf
                           {{ method_field('Delete') }}
@@ -76,6 +76,59 @@
     <!-- Content Row -->
 
 </div>
+</br>
 @endsection
- 
+
+@push('script-alt')
+<script>
+    $(function () {
+  let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+  let deleteButtonTrans = 'delete selected'
+  let deleteButton = {
+    text: deleteButtonTrans,
+    url: "#",
+    className: 'btn-danger',
+    action: function (e, dt, node, config) {
+      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
+          return $(entry).data('entry-id')
+      });
+      if (ids.length === 0) {
+        alert('zero selected')
+        return
+      }
+      if (confirm('are you sure ?')) {
+        $.ajax({
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          method: 'POST',
+          url: config.url,
+          data: { ids: ids, _method: 'DELETE' }})
+          .done(function () { location.reload() })
+      }
+    }
+  }
+  dtButtons.push(deleteButton)
+  $.extend(true, $.fn.dataTable.defaults, {
+    order: [[ 1, 'asc' ]],
+    pageLength: 50,
+  });
+  $('.datatable-question:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+        $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust();
+    });
+})
+</script>
+@endpush
+
+
 @endcan
+
+
+
+
+
+
+
+
+
+

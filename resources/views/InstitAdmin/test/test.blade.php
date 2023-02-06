@@ -1,13 +1,12 @@
 @extends('layouts.InstitAdminLayouts')
 
 @can('isInstitAdmin')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Test</div>
+                <div class="card-header">{{ $course->name }}</div>
 
                 <div class="card-body">
                     @if(session('status'))
@@ -22,12 +21,12 @@
 
                     <form method="POST" action="{{ route('client.test.store') }}">
                         @csrf
-                        @foreach($categories as $category)
+                     
                             <div class="card mb-3">
-                                <div class="card-header">{{ $category->name }}</div>
+                                <div class="card-header">{{ $quiz->name }}</div>
                 
                                 <div class="card-body">
-                                    @foreach($category->courseQuestions as $question)
+                                    @foreach($questions as $question)
                                         <div class="card @if(!$loop->last)mb-3 @endif">
                                             <div class="card-header">{{ $question->question_text }}</div>
                         
@@ -52,7 +51,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                        @endforeach
+                
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6">

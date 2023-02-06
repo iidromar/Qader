@@ -41,4 +41,8 @@ public function taken(){
     {
         return $this->hasMany(Question::class);
     }
+    public function courseQuizzes()
+    {
+        return $this->hasMany(quiz::class);
+    }
 }

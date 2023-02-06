@@ -31,7 +31,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{ $c = 0 }}
+                                @php
+                                $c = 0;
+                                @endphp
                                 @foreach($related as $r)
                                 <tr>
                                     <td>{{ $employee->name }}</td>
@@ -46,7 +48,9 @@
                                     </td>
 
                                 </tr>
-                                    {{ $c = $c +1 }}
+                                    @php
+                                        $c = $c +1
+                                    @endphp
                                 @endforeach
                                 </tbody>
                                 <tfoot>

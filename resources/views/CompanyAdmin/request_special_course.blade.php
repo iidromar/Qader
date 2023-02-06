@@ -21,16 +21,13 @@
                 <div class="card">
                     <div class="card-header pb-0">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">New Training for <strong>{{ $employee->name }}</strong></h4>
+                            <h4 class="card-title mg-b-0">Request a new course <strong></strong></h4>
                             <i class="mdi mdi-dots-horizontal text-gray"></i>
-                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <a href="{{route('request_special_course', ['e_id' => $employee->id, 'c_id' => \Illuminate\Support\Facades\Auth::user()->id])}}" class="btn btn-primary btn-sm shadow-sm">+ Request Course</a>
-                            </div>
                         </div>
                         <p class="tx-12 tx-gray-500 mb-2">Please fill the form below:</p>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('new_training_req', ['id' => $employee->id]) }}" method="post" enctype="multipart/form-data"
+                        <form action="{{ route('request_sending', ['id' => \Illuminate\Support\Facades\Auth::user()->id]) }}" method="post" enctype="multipart/form-data"
                               autocomplete="off">
                             @csrf
                             {{ csrf_field() }}
@@ -51,16 +48,20 @@
                                     </select>
                                 </div>
                                 <div class="col">
-                                    <label for="exampleInputName1">Training Courses</label>
-                                    <select name="items" class="form-control SelectBox" id="items" onclick="" onchange="" required>
+                                    <label for="exampleInputName1">Training Institutions</label>
+                                    <select name="instit" class="form-control SelectBox" id="instit" onclick="" onchange="" required>
                                         <option value="" selected disabled>
-                                            Choose Course:
+                                            Choose Institution:
                                         </option>
+                                        @foreach($institutions_admins as $in)
+                                            <option value="{{ $in->id }}">{{ $in->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
 
                                 <div class="col">
-                                    <label>Deadline</label>
+                                    <label>Receiveing Deadline</label>
                                     <input class="form-control " name="deadline_Date" placeholder="YYYY-MM-DD"
                                            type="date" value="" required>
                                 </div>
@@ -70,29 +71,24 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <label for="inputName" class="control-label">Course Brief:</label>
-                                    <input type="text" class="form-control" id="brief" name="brief" value="" readonly>
+                                    <label for="inputName" class="control-label">Course title:</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="">
                                 </div>
                             </div>
                             {{-- 4 --}}
 
                             <div class="row">
                                 <div class="col">
-                                    <label for="inputName" class="control-label">Price</label>
-                                    <input type="text" class="form-control" id="price" name="price" value="" readonly>
-                                </div>
-
-                                <div class="col">
-                                    <label for="inputName" class="control-label">Price with VAT:</label>
-                                    <input type="text" class="form-control" id="total" name="total" readonly>
+                                    <label for="inputName" class="control-label">Course Description:</label>
+                                    <input type="text" class="form-control" id="desc" name="desc" value="" >
                                 </div>
                             </div>
-
-
                             <br>
+                            <p class="tx-12 tx-gray-500 mb-2">*The price of the course will be decided by the institution admin later.</p>
 
                             <div class="d-flex justify-content-center">
-                                <button type="submit" class="btn btn-primary">Send Training</button>
+
+                                <button type="submit" class="btn btn-primary">Send Request</button>
                             </div>
 
 

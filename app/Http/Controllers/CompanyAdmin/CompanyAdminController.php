@@ -44,10 +44,36 @@ class CompanyAdminController extends Controller
                }
            }
        }
+       $data_requested = DB::table('course_requested')->where('admin_id', '=', Auth::user()->id)->get()->count();
+
        $vat = $invoices + $vat;
        $invoices = number_format($invoices, 2);
        $vat = number_format($vat, 2);
-       return view('CompanyAdmin.dashboard', compact( 'invoices', 'counter_of_courses_scheduled', 'vat'));
+
+       $progTotal = 0;
+       $numOfEmp = 0;
+       $my_employees = User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get();
+       if($my_employees){
+           foreach ($my_employees as $e){
+               $te = DB::table('course_taken_by')->where('employee_id', '=', $e->id)->get();
+               if($te){
+                   foreach ($te as $to){
+                       $numOfEmp++;
+                       $progTotal = $progTotal + $to->progress;
+                   }
+               }
+           }
+       }
+       if($numOfEmp){
+           $calcProg = ($progTotal / $numOfEmp);
+       }
+       else{
+           $calcProg = 0;
+       }
+
+       $totemp =  User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get()->count();
+
+       return view('CompanyAdmin.dashboard', compact( 'invoices', 'counter_of_courses_scheduled', 'vat', 'data_requested', 'calcProg', 'totemp'));
    }
    public function all_employees(){
        $emp = User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get();
@@ -96,7 +122,7 @@ class CompanyAdminController extends Controller
        $rr = $request->all();
        $c = DB::table('courses')->where('name', $request->hiddenOneValue)->first();
        DB::table('course_taken_by')->insert(
-          array('employee_id' => $id, 'course_id' => $c->id, 'progress' => 0, 'deadline' => $request->deadline_Date)
+          array('employee_id' => $id, 'course_id' => $c->id, 'progress' => 0, 'deadline' => $request->deadline_Date, 'created_at' => now())
        );
        session()->flash('Add', 'Training has been assigned to the employee successfully.');
        $employee = User::find($id);
@@ -128,5 +154,40 @@ class CompanyAdminController extends Controller
 
 
         return redirect('/CompanyEmployees');
+    }
+    public function request_special_course($c_id=null, $e_id=null){
+        $options = Course::getPossibleCategories();
+        $institutions_admins = DB::table('users')->where('role', '2')->get();
+        return view('CompanyAdmin.request_special_course', compact('options', 'institutions_admins'));
+    }
+    public function request_sending(Request $request, $id=null){
+        $c = DB::table('courses')->where('name', $request->hiddenOneValue)->first();
+        DB::table('course_requested')->insert(
+            array('admin_id' => $id, 'instit_id' => $request->instit, 'title' => $request->title, 'description' => $request->desc, 'category'=>$request->category, 'receive_date'=>$request->deadline_Date)
+        );
+        session()->flash('Add', 'The Request has been sent to the Institution successfully.');
+        $options = Course::getPossibleCategories();
+        $institutions_admins = DB::table('users')->where('role', '2')->get();
+        return view('CompanyAdmin.request_special_course', compact('options', 'institutions_admins'));
+    }
+
+    public function display_requests($id=null){
+       $requests = DB::table('course_requested')->where('admin_id', $id)->get();
+       $admin = User::find($id);
+        $instit = [];
+        $counter = 0;
+
+        foreach ($requests as $r){
+            $in = User::where('id', '=', $r->instit_id)->get()->first()->name;
+            $instit[$counter] = $in;
+            $counter = $counter +1;
+
+        }
+
+       return view('CompanyAdmin.display_requests', compact('requests', 'instit', 'admin'));
+    }
+    public function code($id=null){
+       $admin = User::find($id);
+       return view('CompanyAdmin.code', compact('admin'));
     }
 }

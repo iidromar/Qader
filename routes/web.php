@@ -44,7 +44,10 @@ Route::get('/CategoryItems/{cat?}', [CompanyAdminController::class, 'give_items'
 Route::get('/ItemPrice/{item?}', [CompanyAdminController::class, 'give_price'])->name('give_price');
 Route::post('/sendTraining/{id?}', [CompanyAdminController::class, 'new_training_req'])->name('new_training_req');
 Route::get('/CourseBrief/{item?}', [CompanyAdminController::class, 'give_brief'])->name('give_brief');
-
+Route::get('/requestSpecialCourse/{e_id?}/{c_id?}', [CompanyAdminController::class, 'request_special_course'])->name('request_special_course');
+Route::post('/requestNewCourse/{id?}', [CompanyAdminController::class, 'request_sending'])->name('request_sending');
+Route::get('/display_requests/{id?}', [CompanyAdminController::class, 'display_requests'])->name('display_requests');
+Route::get('/code/{id?}', [CompanyAdminController::class, 'code'])->name('code');
 
 Route::get('/createCourse', [InstitAdminController::class , 'create'])->name('Instit.createCourse');
 Route::post('/Instit/storeCourse', [InstitAdminController::class , 'store'])->name('Instit.storeCourse');
@@ -97,13 +100,6 @@ Route::get('/editQuestion/{id}', [QuestionController::class , 'edit'])->name('ed
 Route::PUT('/updateQuestion/{id}' , [QuestionController::class , 'update'])->name('update.question');
 Route::delete('/deleteQuestion/{id}' ,  [QuestionController::class , 'destroy'])->name('delete.question');
 
-// options
-Route::get('/allOption', [OptionController::class , 'index'])->name('course.option');
-Route::get('/createOption', [OptionController::class , 'create'])->name('create.option');
-Route::post('/storeOption', [OptionController::class , 'store'])->name('store.option');
-Route::get('/editOption/{id}', [OptionController::class , 'edit'])->name('edit.option');
-Route::PUT('/updateOption/{id}' , [OptionController::class , 'update'])->name('update.option');
-Route::delete('/deleteOption/{id}' ,  [OptionController::class , 'destroy'])->name('delete.option');
 
 
 // results

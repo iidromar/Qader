@@ -14,15 +14,17 @@ class CreateOptionsTable extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('options')){
+        if (!Schema::hasTable('options')) {
             Schema::create('options', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('question_id')->references('id')->on('questions')->cascadeOnDelete();
-            $table->longText('option_text');
-            $table->integer('points')->nullable();
-            $table->timestamps();
-        });
-    }}
+                $table->id();
+                $table->foreignId('question_id')->references('id')->on('questions')->cascadeOnDelete();
+                $table->foreignId('quiz_id')->references('id')->on('quizzes')->cascadeOnDelete();
+                $table->longText('option_text');
+                $table->integer('points')->nullable();
+                $table->timestamps();
+            });
+        }
+    }
 
     /**
      * Reverse the migrations.

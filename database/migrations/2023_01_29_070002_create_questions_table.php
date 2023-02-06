@@ -14,13 +14,14 @@ class CreateQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
+        if(!Schema::hasTable('questions')){
+            Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->references('id')->on('courses')->cascadeOnDelete();
+            $table->foreignId('quiz_id')->references('id')->on('quizzes')->cascadeOnDelete();
             $table->longText('question_text');
             $table->timestamps();
         });
-    }
+    }}
 
     /**
      * Reverse the migrations.

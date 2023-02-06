@@ -460,7 +460,6 @@
                 }
             });
             var booking = @json($events);
-
             for( i=0; i < booking.length; i++){
                 var today = new Date();
                 var dd = String(today.getDate()).padStart(2, '0');
