@@ -33,10 +33,9 @@
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('Institlogin') }}">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+            <div class="sidebar-brand-icon">
+                <img id="QaderLogoSideBar" src="{{ asset('HomePageFrontend/img/QaderLogo.png') }}" alt="" height="80" width="200"/>
             </div>
-            <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
         </a>
 
         <!-- Divider -->
@@ -54,12 +53,12 @@
 
         <!-- Heading -->
         <div class="sidebar-heading">
-            Interface
+            Main Functions
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Courses</span>
@@ -68,14 +67,14 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('Instit.allCourses')}}">All Courses</a>
                     <a class="collapse-item" href="{{route('Instit.createCourse')}}">Create a Course</a>
-                   
+
                 </div>
             </div>
         </li>
 
  <!-- Nav Item - Pages Collapse Menu -->
  <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+            <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseThree"
                aria-expanded="true" aria-controls="collapseThree">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Quizzes</span>
@@ -84,12 +83,25 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="{{route('course.question')}}">All Quizzes</a>
                     <a class="collapse-item" href="{{route('create.question')}}">Create a Quiz</a>
-                   
-                   
+
+
                 </div>
             </div>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Special Requests</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Options:</h6>
+                    <a class="collapse-item" href="{{ route('courses_requests', ['id'=>\Illuminate\Support\Facades\Auth::user()->id]) }}">All Requests</a>
+                </div>
+            </div>
+        </li>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
@@ -98,7 +110,7 @@
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
 
-       
+
 
     </ul>
     <!-- End of Sidebar -->

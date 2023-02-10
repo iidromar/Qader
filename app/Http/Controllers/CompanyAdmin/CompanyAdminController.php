@@ -73,7 +73,101 @@ class CompanyAdminController extends Controller
 
        $totemp =  User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get()->count();
 
-       return view('CompanyAdmin.dashboard', compact( 'invoices', 'counter_of_courses_scheduled', 'vat', 'data_requested', 'calcProg', 'totemp'));
+       $empToChart = User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get();
+       $jan = 0; // 1
+       $feb = 0; // 2
+       $mar = 0; // 3
+       $apr = 0; // 4
+       $may = 0; // 5
+       $jun = 0; // 6
+       $jul = 0; // 7
+       $aug = 0; // 8
+       $sep = 0; // 9
+       $oct = 0; // 10
+       $nov = 0; // 11
+       $dec = 0; // 12
+       if($empToChart){
+           foreach ($empToChart as $e){
+               $te = DB::table('course_taken_by')->where('employee_id', '=', $e->id)->get();
+               if($te){
+                   foreach ($te as $to){
+                      $month = date('m', strtotime($to->created_at));
+                       $toto = DB::table('courses')->where('id', $to->course_id)->get()->first();
+                       switch ($month){
+                           case(01):
+                               $jan = $jan + $toto->price;
+                               break;
+                           case(02):
+                               $feb = $feb + $toto->price;
+                               break;
+                           case(03):
+                               $mar = $mar + $toto->price;
+                               break;
+                           case(04):
+                               $apr = $apr + $toto->price;
+                               break;
+                           case(05):
+                               $may = $may + $toto->price;
+                               break;
+                           case(06):
+                               $jun = $jun + $toto->price;
+                               break;
+                           case(07):
+                               $jul = $jul + $toto->price;
+                               break;
+                           case(8):
+                               $aug = $aug + $toto->price;
+                               break;
+                           case(9):
+                               $sep = $sep + $toto->price;
+                               break;
+                           case(10):
+                               $oct = $oct + $toto->price;
+                               break;
+                           case(11):
+                               $nov = $nov + $toto->price;
+                               break;
+                           case(12):
+                               $dec = $dec + $toto->price;
+                               break;
+                           default:
+                               break;
+                       }
+                   }
+               }
+           }
+       }
+
+       $empToPie = User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get();
+       $accepted_req = 0;
+       $rejected_req = 0;
+       $no_action = 0;
+
+       if($empToPie) {
+           foreach ($empToPie as $ep) {
+               $te = DB::table('course_requested')->where('admin_id', '=', Auth::user()->id)->get();
+               if ($te) {
+                   foreach ($te as $to) {
+                       $status = $to->accepted;
+                       switch ($status) {
+                           case(0):
+                               $no_action++;
+                               break;
+                           case(1):
+                               $accepted_req++;
+                               break;
+                           case(2):
+                               $rejected_req++;
+                               break;
+                           default:
+                               break;
+                       }
+                   }
+               }
+           }
+       }
+
+       return view('CompanyAdmin.dashboard', compact( 'invoices', 'counter_of_courses_scheduled', 'vat', 'data_requested', 'calcProg', 'totemp', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec', 'accepted_req', 'rejected_req', 'no_action'));
    }
    public function all_employees(){
        $emp = User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get();
@@ -163,7 +257,7 @@ class CompanyAdminController extends Controller
     public function request_sending(Request $request, $id=null){
         $c = DB::table('courses')->where('name', $request->hiddenOneValue)->first();
         DB::table('course_requested')->insert(
-            array('admin_id' => $id, 'instit_id' => $request->instit, 'title' => $request->title, 'description' => $request->desc, 'category'=>$request->category, 'receive_date'=>$request->deadline_Date)
+            array('admin_id' => $id, 'instit_id' => $request->instit, 'title' => $request->title, 'description' => $request->desc, 'category'=>$request->category, 'receive_date'=>$request->deadline_Date, 'created_at'=>now())
         );
         session()->flash('Add', 'The Request has been sent to the Institution successfully.');
         $options = Course::getPossibleCategories();

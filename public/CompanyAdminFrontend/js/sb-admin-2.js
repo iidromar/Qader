@@ -8,7 +8,7 @@
       if ($(".sidebar").hasClass("toggled")) {
       $('.sidebar .collapse').collapse('hide');
 
-    };
+    }
   });
     $("#sidebarToggle").on('click', function(e) {
     $('#QaderLogoSideBar').attr('height', '30');

@@ -32,6 +32,7 @@
                                     <th class="border-bottom-0">Deadline for receiving</th>
                                     <th class="border-bottom-0">Accepted/Rejected Status</th>
                                     <th class="border-bottom-0">Accepted/Rejected Date</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -57,13 +58,12 @@
                                                 <td>{{ $r->accepted_date }}</td>
                                             @elseif($r->accepted == '2')
                                             <td>{{ $r->accepted_date }}</td>
-                                        <td>
-                                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{ route('give_training', [$e->id]) }}">Add Training</a>
-                                        </td>
+                                        @endif
+
                                             <td></td>
 
                                     </tr>
-                                    @endif
+
                                     @php
                                         $c = $c +1
                                     @endphp

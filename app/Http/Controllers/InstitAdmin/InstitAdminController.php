@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\InstitAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\course;
 use App\Models\lesson;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
@@ -225,5 +228,54 @@ class InstitAdminController extends Controller
         $lesson->delete();
         Session()->flash('delete-success' , 'Course Updated Successfully');
         return redirect()->route('Instit.show', [$courseId]);
+    }
+
+    public function courses_requests($id=null){
+        $instit = User::find($id);
+        $temp = DB::table('course_requested')->where('instit_id', $id)->where('accepted', '0')->get();
+        $names = [];
+        $counter = 0;
+        foreach ($temp as $t){
+            $test = DB::table('companies')->where('admin', $t->admin_id)->get()->first();
+            $names[$counter] = $test->name;
+            $counter++;
+        }
+        return view('InstitAdmin.course_requested', compact('temp', 'names'));
+    }
+
+    public function accepting_course($id=null){
+        DB::table('course_requested')->where('id', $id)->update([
+            'accepted' => '1',
+            'accepted_date' => now(),
+        ]);
+        session()->flash('Add', 'The Request has been accepted successfully. Please Open a new
+        Course and finish it before the specified deadline.');
+        $id = Auth::user()->id;
+        $temp = DB::table('course_requested')->where('instit_id', $id)->where('accepted', '0')->get();
+        $names = [];
+        $counter = 0;
+        foreach ($temp as $t){
+            $test = DB::table('companies')->where('admin', $t->admin_id)->get()->first();
+            $names[$counter] = $test->name;
+            $counter++;
+        }
+        return view('InstitAdmin.course_requested', compact('temp', 'names'));
+    }
+    public function rejecting_course($id=null){
+        DB::table('course_requested')->where('id', $id)->update([
+            'accepted' => '2',
+            'accepted_date' => now(),
+        ]);
+        session()->flash('Error', 'The Request has been rejected successfully.');
+        $id = Auth::user()->id;
+        $temp = DB::table('course_requested')->where('instit_id', $id)->where('accepted', '0')->get();
+        $names = [];
+        $counter = 0;
+        foreach ($temp as $t){
+            $test = DB::table('companies')->where('admin', $t->admin_id)->get()->first();
+            $names[$counter] = $test->name;
+            $counter++;
+        }
+        return view('InstitAdmin.course_requested', compact('temp', 'names'));
     }
 }
