@@ -5,6 +5,7 @@ namespace App\Http\Controllers\InstitAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use App\Models\course;
 use App\Models\lesson;
@@ -16,7 +17,25 @@ use Illuminate\Support\Facades\Storage;
 class InstitAdminController extends Controller
 {
     public function index(){
-        return view('InstitAdmin.dashboard');
+        $courses = Course::where('creator', Auth::user()->id)->get();
+        $maid = $courses->count();
+        $earnings = 0;
+        if($courses){
+            foreach ($courses as $c){
+                $taken = DB::table('course_taken_by')->where('course_id', $c->id)->get();
+                foreach ($taken as $t){
+                    $earnings = $earnings + $c->price;
+                }
+            }
+            foreach ($courses as $c){
+                $req = DB::table('course_requested')->where('course_id', $c->id)->get();
+            }
+        }
+
+        $earnings = number_format($earnings, 2);
+
+
+        return view('InstitAdmin.dashboard', compact('earnings', 'maid'));
     }
     public function allCourses()
     {
@@ -230,9 +249,8 @@ class InstitAdminController extends Controller
         return redirect()->route('Instit.show', [$courseId]);
     }
 
-    public function courses_requests($id=null){
-        $instit = User::find($id);
-        $temp = DB::table('course_requested')->where('instit_id', $id)->where('accepted', '0')->get();
+    public function courses_requests(){
+        $temp = DB::table('course_requested')->where('instit_id', Auth::user()->id)->where('accepted', '0')->get();
         $names = [];
         $counter = 0;
         foreach ($temp as $t){
@@ -277,5 +295,20 @@ class InstitAdminController extends Controller
             $counter++;
         }
         return view('InstitAdmin.course_requested', compact('temp', 'names'));
+    }
+    public function searchEngine(Request $request){
+        $course = Course::where('name','LIKE',"%{$request->search}%");
+        $filter_one = $course->where('creator', Auth::user()->id);
+        $filter_two = $filter_one->get()->first();
+        if($filter_two){
+            return redirect()->route('Instit.show', ['id' => $filter_two->id]);
+        }
+        return back()->with("search_error", "Can't find any Course!");
+    }
+    public function Institprofile(){
+        return view('InstitAdmin.profile');
+    }
+    public function changePassword(){
+        return view('InstitAdmin.changePassword');
     }
 }

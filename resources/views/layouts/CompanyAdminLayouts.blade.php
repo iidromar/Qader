@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="{{ URL::asset('assets/plugins/telephoneinput/telephoneinput-rtl.css') }}">
 <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css')}}">
 <link rel="stylesheet" href="{{ asset('card/style.css') }}">
-
+<link rel="stylesheet" href="{{ URL::asset('assets/css/profile_updated.css') }}">
 
 <head>
 
@@ -29,7 +29,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Dashboard</title>
+    <title>Welcome, {{ \Illuminate\Support\Facades\Auth::user()->name }}</title>
 
     <!-- Custom fonts for this template-->
 
@@ -128,7 +128,7 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Progress Results</span>
+                <span>Results</span>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -166,7 +166,15 @@
 
         <!-- Main Content -->
         <div id="content">
-
+            @if (session('search_status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('search_status') }}
+                </div>
+            @elseif (session('search_error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('search_error') }}
+                </div>
+            @endif
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -177,12 +185,13 @@
 
                 <!-- Topbar Search -->
                 <form
-                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="{{ route('searchEngine') }}" method="POST">
+                    @csrf
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for Employee!"
+                               aria-label="Search" aria-describedby="basic-addon2" name="search">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -204,7 +213,7 @@
                             <form class="form-inline mr-auto w-100 navbar-search">
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-light border-0 small"
-                                           placeholder="Search for..." aria-label="Search"
+                                           placeholder="Search for employee.." aria-label="Search"
                                            aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <button class="btn btn-primary" type="button">
@@ -228,14 +237,14 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('profile') }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
+{{--                            <a class="dropdown-item" href="#">--}}
+{{--                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>--}}
+{{--                                Settings--}}
+{{--                            </a>--}}
 
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
@@ -257,16 +266,16 @@
         </div>
         <!-- End of Main Content -->
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
 
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Qader 2023</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
     </div>
     <!-- End of Content Wrapper -->
 

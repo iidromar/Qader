@@ -48,6 +48,11 @@ Route::get('/requestSpecialCourse/{e_id?}/{c_id?}', [CompanyAdminController::cla
 Route::post('/requestNewCourse/{id?}', [CompanyAdminController::class, 'request_sending'])->name('request_sending');
 Route::get('/display_requests/{id?}', [CompanyAdminController::class, 'display_requests'])->name('display_requests');
 Route::get('/code/{id?}', [CompanyAdminController::class, 'code'])->name('code');
+Route::get('/profile', [CompanyAdminController::class, 'profile'])->name('profile');
+Route::get('/changePassword', [CompanyAdminController::class, 'changePassword'])->name('changePassword');
+Route::post('/changePasswordSending', [CompanyAdminController::class, 'changePasswordSending'])->name('changePasswordSending');
+Route::post('/searchEngine', [CompanyAdminController::class, 'searchEngine'])->name('searchEngine');
+
 
 Route::get('/createCourse', [InstitAdminController::class , 'create'])->name('Instit.createCourse');
 Route::post('/Instit/storeCourse', [InstitAdminController::class , 'store'])->name('Instit.storeCourse');
@@ -57,9 +62,13 @@ Route::PUT('/Instit/updateCourse/{id}' , [InstitAdminController::class , 'update
 Route::get('/Instit/showCourse/{id}', [InstitAdminController::class , 'show'])->name('Instit.show');
 Route::delete('delete/course/{id}' ,  [InstitAdminController::class , 'destroy'])->name('course.destroy');
 Route::delete('delete/lesson/{id}' ,  [InstitAdminController::class , 'destroyLesson'])->name('lesson.destroy');
-Route::get('/courses_requests/{id?}', [InstitAdminController::class, 'courses_requests'])->name('courses_requests');
+Route::get('/courses_requests', [InstitAdminController::class, 'courses_requests'])->name('courses_requests');
 Route::get('/accepting_course/{id?}', [InstitAdminController::class, 'accepting_course'])->name('accepting_course');
 Route::get('/rejecting_course/{id?}', [InstitAdminController::class, 'rejecting_course'])->name('rejecting_course');
+Route::post('/searchEngineCourse', [InstitAdminController::class, 'searchEngine'])->name('searchEngineCourse');
+Route::get('/Institprofile', [InstitAdminController::class, 'Institprofile'])->name('Institprofile');
+Route::get('/changePasswordInstit', [InstitAdminController::class, 'changePassword'])->name('changePasswordInstit');
+Route::post('/changePasswordSendingInstit', [InstitAdminController::class, 'changePasswordSending'])->name('changePasswordSendingInstit');
 
 
 

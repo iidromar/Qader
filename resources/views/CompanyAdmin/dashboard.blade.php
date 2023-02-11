@@ -21,7 +21,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Courses Scheduled</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $counter_of_courses_scheduled }} Courses</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $counter_of_courses_scheduled }}{{ $counter_of_courses_scheduled == 1? ' Course': ' Courses' }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -103,7 +103,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Courses Requested</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data_requested }} Requests</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $data_requested }}{{ $data_requested == 1? ' Request': ' Requests' }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -119,7 +119,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Total Employees</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totemp }} Employees</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totemp }}{{ $totemp == 1? ' Employee': ' Employees' }}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-person-booth fa-2x text-gray-300"></i>
@@ -141,20 +141,7 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Paid Invoices Overview</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -185,20 +172,7 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Requested Courses</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">

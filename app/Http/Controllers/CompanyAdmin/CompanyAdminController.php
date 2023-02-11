@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 
 class CompanyAdminController extends Controller
@@ -283,5 +284,42 @@ class CompanyAdminController extends Controller
     public function code($id=null){
        $admin = User::find($id);
        return view('CompanyAdmin.code', compact('admin'));
+    }
+    public function profile(){
+       return view('CompanyAdmin.profile');
+    }
+    public function changePassword(){
+       return view('CompanyAdmin.changePassword');
+    }
+    public function changePasswordSending(Request $request){
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, Auth::user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(Auth::user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status", "Password changed successfully!");
+    }
+
+    public function searchEngine(Request $request){
+        $emp = User::where('name','LIKE',"%{$request->search}%");
+        $filter_one = $emp->where('code', Auth::user()->code);
+        $filter_two = $filter_one->where('role', '0')->get()->first();
+        if($filter_two){
+            return redirect()->route('employee_progress', ['id' => $filter_two->id]);
+        }
+        return back()->with("search_error", "Can't find any Employee!");
     }
 }

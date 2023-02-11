@@ -184,7 +184,19 @@ class HomeController extends Controller
             return view('Employee.dashboard');
         }
         if(Auth::user()->role == '2'){
-            return view('InstitAdmin.dashboard');
+            $courses = Course::where('creator', Auth::user()->id)->get();
+            $maid = $courses->count();
+            $earnings = 0;
+            if($courses){
+                foreach ($courses as $c){
+                    $taken = DB::table('course_taken_by')->where('course_id', $c->id)->get();
+                    foreach ($taken as $t){
+                        $earnings = $earnings + $c->price;
+                    }
+                }
+            }
+            $earnings = number_format($earnings, 2);
+            return view('InstitAdmin.dashboard', compact('earnings', 'maid'));
         }
 
 }
