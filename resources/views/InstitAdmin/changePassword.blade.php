@@ -81,7 +81,7 @@
                                             <a class="btn btn-info" style="margin-right: 30px; margin-left: 10px;" href="{{ route('Institprofile') }}">Cancel</a>
                                         </div>
                                         <div>
-                                            <button class="btn btn-success">Submit</button>
+                                            <button class="btn btn-primary">Submit</button>
                                         </div>
                         </form>
                     </div>

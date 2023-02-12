@@ -7,7 +7,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-   
+
 
     <!-- Content Row -->
         <div class="card">
@@ -52,17 +52,45 @@
                                         <a href="{{route('edit.question' ,$quiz->id)}}" class="btn btn-info">
                                             <i class="fa fa-pencil-alt"></i>
                                         </a>
-                                        <form onclick="return confirm('are you sure ? ')" class="d-inline" action="{{route('delete.question' ,$quiz->id)}}" method="POST">
-                                        @method('Delete')
-                          @csrf
-                          {{ method_field('Delete') }}
-                                            <button class="btn btn-danger" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
+                                        <a class="dropdown-item btn bg-danger text-white" href="{{route('delete.question' ,$quiz->id)}}" data-toggle="modal" data-target="#deleteModal" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
                                                 <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        </a>
+{{--                                        <form onclick="return confirm('are you sure ? ')" class="d-inline" action="" method="POST">--}}
+{{--                                        @method('Delete')--}}
+{{--                          @csrf--}}
+{{--                          {{ method_field('Delete') }}--}}
+{{--                                            <button class="btn btn-danger" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">--}}
+{{--                                                <i class="fa fa-trash"></i>--}}
+{{--                                            </button>--}}
+{{--                                        </form>--}}
                                     </div>
                                 </td>
                             </tr>
+                            <!-- delete Modal-->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure to delete?</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">Select "Delete" below if you want to delete the quiz.</div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                            <a class="btn btn-danger" href="{{route('delete.question' ,$quiz->id)}}" onclick="event.preventDefault();
+                                                     document.getElementById('delete-form').submit();">Delete</a>
+                                        </div>
+                                        <form id="delete-form" action="{{route('delete.question' ,$quiz->id)}}" method="POST" class="d-none">
+                                            @method('Delete')
+                                            @csrf
+                                            {{ method_field('Delete') }}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             @empty
                             <tr>
                                 <td colspan="7" class="text-center">{{ __('Data Empty') }}</td>

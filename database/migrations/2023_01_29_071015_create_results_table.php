@@ -17,6 +17,7 @@ class CreateResultsTable extends Migration
         Schema::create('results', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnUpdate();
+            $table->foreignId('course_id')->references('id')->on('courses')->cascadeOnDelete();
             $table->integer('total_points')->nullable();
             $table->timestamps();
         });

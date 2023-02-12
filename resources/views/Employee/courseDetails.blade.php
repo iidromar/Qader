@@ -13,56 +13,80 @@
 @endsection
 @section('content')
 
-		<!-- page-banner-section
+		<!-- Container -->
+	<div id="container">
+		<!-- Header
+		    ================================================== -->
+		@if($courses)
+		<!-- page-banner-section 
 			================================================== -->
-            <section class="page-banner-section">
+		<section class="page-banner-section">
 			<div class="container">
+			<div class="row">
+				<div class="col-lg-1"></div>
+					<div class="col-lg-10">
 				<h1>{{$courses->name}}</h1>
+				
+			</div>
+			</div>
 			</div>
 		</section>
 		<!-- End page-banner-section -->
-        <!-- single-course-section
+
+		<!-- single-course-section 
 			================================================== -->
 		<section class="single-course-section">
 			<div class="container">
 				<div class="row">
+				<div class="col-lg-1"></div>
 					<div class="col-lg-10">
 
 						<div class="single-course-box">
 
 							<!-- single top part -->
 							<div class="product-single-top-part">
-								<div class="product-info-before-gallery" style="text-align:center">
-									<div class="course-author before-gallery-unit" style="text-align:center">
-
+								<div class="product-info-before-gallery">
+									<div class="course-author before-gallery-unit">
+										<div class="icon">
+										</div>
 										<div class="info">
 											<span class="label">Teacher</span>
 											<div class="value">
-												<a href="single-teacher.ht">{{auth()->user()->name}}</a>
+												<a href="single-teacher.html">{{$creatorName[0]['creator']}}</a>
 											</div>
 										</div>
 									</div>
-									<div class="course-category before-gallery-unit" style="text-align:center">
-
+									<div class="course-category before-gallery-unit">
+										<div class="icon">
+											
+										</div>
 										<div class="info">
 											<span class="label">Category</span>
 											<div class="value">
-												<a href="#">{{$courses->category}}</a>
+												<a href="#">{{$courses->category}} </a>
+												
 											</div>
 										</div>
 									</div>
-									<div class="course-rating before-gallery-unit" style="text-align:center">
-                                    <div class="info">
+									<div class="course-category before-gallery-unit">
+										<div class="icon">
+											
+										</div>
+										<div class="info">
 											<span class="label">Lessons</span>
 											<div class="value">
-												<a href="#"></a>
+												@if($lessons)
+												<a href="#">{{count($lessons)}} Lessons</a>
+												@else
+												<a href="#">0 Lesson</a>
+												@endif
+												
 											</div>
 										</div>
 									</div>
-
 								</div>
 								<div class="course-single-gallery">
-									<img src="upload/courses/4.jpg" alt="">
+									<img src="{{ asset('HomePageFrontend/images/course_1.jpg') }}" alt="">
 								</div>
 
 							</div>
@@ -70,12 +94,13 @@
 							<!-- single course content -->
 							<div class="single-course-content">
 								<h2>Course Description</h2>
-								<p>{{$courses->description}}</p>
+								<p>{{$courses->description}}</p>								
+								
+								@if($lessons)	
 								<!-- course section -->
-                                @if( $lessons->count()>0)
-                               @foreach($lessons as $lesson)
+								@foreach($lessons as $lesson)
 								<div class="course-section">
-									<h3>{{ $loop->index +1}}. Lesson</h3>
+									<h3>{{$loop->index+1}}. Lesson</h3>
 									<div class="panel-group">
 										<div class="course-panel-heading">
 											<div class="panel-heading-left">
@@ -83,48 +108,124 @@
 													<i class="fa fa-play-circle-o"></i>
 												</div>
 												<div class="title">
-													<h4>{{ $lesson['names'] }} </h4>
+													<h4>{{$lesson->names}} <span class="badge-item video">video</span>
+													</h4>
+													<p class="subtitle">01:10</p>
+												</div>
+											</div>
+											
+										</div>
+										<div class="panel-content">
+											<div class="panel-content-inner">
+												<p>{{$lesson->descriptions}}</p>
+											<!-- Button trigger modal -->
+										
+											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+											Watch The Lesson
+											</button>
 
+											<!-- Modal -->
+											<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-lg" role="document">
+												<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="exampleModalLabel">{{$lesson->names}}</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+												<video width="760px" height="500px" controls>
+																						<source src="{{asset('/storage/instit/courses')}}/{{$lesson->video}}" type="video/mp4">
+																						</video>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+												</div>
+												</div>
+											</div>
+											</div>
+
+
+											</div>
+											
+										</div>
+										
+				
+									</div>
+								</div>
+								<!-- end course section -->
+									@endforeach
+									@endif
+									@endif
+								
+								
+								<!-- course section-->
+								<div class="course-section">
+									<h3>Quiz Sections</h3>
+									<div class="panel-group">
+										<div class="course-panel-heading">
+											<div class="panel-heading-left">
+												<div class="course-lesson-icon">
+													<i class="fa fa-question-circle"></i>
+												</div>
+												<div class="title">
+													<h4> Course &amp; Practice <span class="badge-item quiz">quiz</span></h4>
+													<p class="subtitle">Course quiz</p>
 												</div>
 											</div>
 										</div>
-										<div class="panel-content" >
-											<div class="panel-content-inner">Lesson Description: {{ $lesson['descriptions'] }}</div>
-											<div class="panel-content-inner">
-                                            <video width="700px" height="500px" controls>
-                                            <source src="{{asset('/storage/instit/courses')}}/{{$lesson['video']}}" type="video/mp4">
-                                            </video>
-                                            </div>
+										<div class="panel-content">
+										@if(sizeof($results)==0)
+											<div class="panel-content-inner"> <a class="btn btn-primary"  href="{{route('client.test' ,$courses->id)}}">Start Quiz</a></div>
+											@else
+											<div class="panel-content-inner">You Already Took The Quiz</div>
+											@endif
 										</div>
+										<div class="course-panel-heading">
+											<div class="panel-heading-left">
+												<div class="course-lesson-icon">
+													<i class="fa fa-trophy"></i>
+												</div>
+												<div class="title">
+													<h4>Quiz Result</h4>
+								 					
+												</div>
+											</div>
+										</div>
+										<div class="panel-content">
+											@if(sizeof($results)!=0)
+											<div class="panel-content-inner">Your Quiz Result: {{ $results[0]->total_points }} Out Of {{count($results[0]->questions)}}</div>
+											@else
+											<div class="panel-content-inner">No Result</div>
+											@endif
+										</div>
+									</div>
+								</div>
+								<!-- end course section -->
 
-								
-                                @endforeach
-                               @endif
-                                </div>
+							</div>
+							<!-- end single course content -->
+
 
 						</div>
-
-				<a class='btn btn-primary' href="#"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                width="24" height="24"
-                viewBox="0,0,256,256"
-                style="fill:#000000;">
-                <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g transform="scale(10.66667,10.66667)"><path d="M12,2c-5.514,0 -10,4.486 -10,10c0,5.514 4.486,10 10,10c5.514,0 10,-4.486 10,-10c0,-1.126 -0.19602,-2.2058 -0.54102,-3.2168l-1.61914,1.61914c0.105,0.516 0.16016,1.05066 0.16016,1.59766c0,4.411 -3.589,8 -8,8c-4.411,0 -8,-3.589 -8,-8c0,-4.411 3.589,-8 8,-8c1.633,0 3.15192,0.49389 4.41992,1.33789l1.43164,-1.43164c-1.648,-1.194 -3.66656,-1.90625 -5.85156,-1.90625zM21.29297,3.29297l-10.29297,10.29297l-3.29297,-3.29297l-1.41406,1.41406l4.70703,4.70703l11.70703,-11.70703z"></path></g></g>
-                </svg></a>
-					<a class="btn btn-success me-2 "  href="{{route('Instit.edit' ,$courses->id)}}">
-
-					<img width="24" height="24" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB/klEQVR4nO2ZzS5EMRiGu7JkxM9FmD0S1sRPJIOluQbBwnaWFsIOscfa3zUIJm4BV8AOs3mk9Ew69JxpZ3rameS8SZf9+j79vvacfBWiUKFUAdPAthpTol8ElIBb/usGGBK9LGAYqBvMNyFEH5tPNOUScF3V4K6HsSljZqxXxU7b7YyPA6dAA/86b7P2TlcAQBl4JT+dGbI85wgxmbXzf83fAQfAnochjZUMNd8AVi0hrrN2X5ZNojdgQYQ7sA0LiLq+AaaAes2HNG8DUc+6AIS6bRLdRTCfBVHNNG9I134k86kQNsFrzelQi2heh5jvCQD1b/OAm56AkegAQcznBRDMfB4AQc37BujgwP6751WMCzVKwQB8mJdSf8CJtkQIAGAAeOzWfEd+PAFs+DAfE+DK14ElNAAwCHz4MB8LoOrzqiQCwJXPe56QAKp8PtuYf2z7SxwRoJJiWkJdqttpwDFmLSTATIrpQZc4sc/ALLDSjeno3wGfogCILIoMRBZFBvowAzt5N7ZcxG9D2e49QE1YC9FatBVwr/mp2HYR9ObuYhCnBgHLmo8v64c94ESb+A4siTjm3zUfRy6Tx4AXWnWv6nE353Fo6CM9A6OuO1A2QMTQMzDRQRJ/IEaBY1V/ofUly8Z551NAhmSfXjaWPL2RZY0ttVZvv8QXEq36BhSarkfwlJB4AAAAAElFTkSuQmCC">
-
-				</a>
+				<div class="ml-auto">
+									<a href="{{ route('employee.allCourses'  , auth()->user()->id)}}" class="btn btn-primary">
+										<span class="text">{{ __('Go Back') }}</span>
+									</a>
+								</div>
 					</div>
 
 
 				</div>
-
+						
 			</div>
+			
 		</section>
-					</div>
 		<!-- End single-course section -->
+		
 
+	</div>
 
 
 

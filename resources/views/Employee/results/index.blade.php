@@ -6,7 +6,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-   
+
 
     <!-- Content Row -->
         <div class="card">
@@ -38,11 +38,13 @@
                                 </td>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $result->user->name }}</td>
-                                <td>{{ $result->total_points }}</td>
+                                <td>{{ $result->total_points }} Out Of {{count($result->questions)}}</td>
                                 <td>
-                                    @foreach($result->questions as $key => $question)
-                                        <span class="badge badge-info">{{ $question->course->name}}</span>
+                                @foreach($result->questions as $key => $question)
+                                      {{  $question->quiz->course->name }}
+                                        @break
                                     @endforeach
+
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
@@ -54,7 +56,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="7" class="text-center">{{ __('Data Empty') }}</td>
+                                <td colspan="7" class="text-center">{{ __('No Result') }}</td>
                             </tr>
                             @endforelse
                         </tbody>
@@ -108,8 +110,6 @@
 </script>
 @endpush
 
-   
 
-@endsection
 @endcan
 

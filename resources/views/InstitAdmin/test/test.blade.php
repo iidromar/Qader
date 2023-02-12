@@ -1,6 +1,6 @@
-@extends('layouts.InstitAdminLayouts')
+@extends('layouts.EmployeeLayouts')
 
-@can('isInstitAdmin')
+@can('isEmployee')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -24,7 +24,7 @@
                      
                             <div class="card mb-3">
                                 <div class="card-header">{{ $quiz->name }}</div>
-                
+                                <input type="hidden" name="course_id" value="{{ $quiz->course->id }}">
                                 <div class="card-body">
                                     @foreach($questions as $question)
                                         <div class="card @if(!$loop->last)mb-3 @endif">

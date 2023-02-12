@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\CompanyAdmin;
+use App\Models\user;
 
 use App\Models\Result;
 use App\Models\Question;
@@ -15,12 +16,12 @@ use Illuminate\Http\Request;
 
 class ResultController extends Controller
 {
-   
-    public function index(): View
-    {
-        $results = Result::all();
 
-        return view('CompanyAdmin.results.index', compact('results'));
+    public function index()
+    {
+        $code=auth()->user()->code;
+        $users=User::where('code' , $code)->where('role', '0')->get();
+        return view('CompanyAdmin.results.index',  compact('users'));
     }
 
     public function create(): View
@@ -34,8 +35,8 @@ class ResultController extends Controller
     {
         $result=result::create([
             'total_points'=>$request->total_points,
-            'user_id'=>auth()->id(),   
-         ]);
+            'user_id'=>auth()->id(),
+        ]);
 
         $result->questions()->sync($request->input('questions', []));
 
@@ -67,9 +68,9 @@ class ResultController extends Controller
         if($result){
             $result->update([
                 'total_points'=>$request->total_points,
-                'user_id'=>auth()->id(),  
-             ]);
-            }
+                'user_id'=>auth()->id(),
+            ]);
+        }
 
         $result->questions()->sync($request->input('questions', []));
 

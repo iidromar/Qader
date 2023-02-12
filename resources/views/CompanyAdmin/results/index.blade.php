@@ -14,14 +14,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">
                     {{ __('result') }}
                 </h6>
-                <div class="ml-auto">
-                    <a href="{{ route('create.Result') }}" class="btn btn-primary">
-                        <span class="icon text-white-50">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        <span class="text">{{ __('New result') }}</span>
-                    </a>
-                </div>
+             
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -39,28 +32,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($results as $result)
+                          
+                        @if(count($users)>0)
+                           @foreach($users as $user)
+                           @if(count($user->userResults)>0)
+                           @foreach($user->userResults as $result)
+                         
                             <tr data-entry-id="{{ $result->id }}">
                                 <td>
 
                                 </td>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $result->user->name }}</td>
-                                <td>{{ $result->total_points }}</td>
+                                <td>{{ $user->name }}</td>
+                                @php
+                                $presentage = ($result->total_points /count($result->questions)) *100;
+                                @endphp
+                                <td>{{number_format($presentage, 1, '.' ,'') }} %</td>
                                 <td>
-                                    @foreach($result->questions as $key => $question)
-                                      {{  $question->course->name }}
-                                        @break
-                                    @endforeach
+                                 
+                                      {{  $result->course->name }}
+                                      
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <a href="{{ route('show.Result', $result->id) }}" class="btn btn-success">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                        <a href="{{ route('edit.Result', $result->id) }}" class="btn btn-info">
-                                            <i class="fa fa-pencil-alt"></i>
-                                        </a>
+                                      
                                         <form onclick="return confirm('are you sure ? ')" class="d-inline" action="{{ route('delete.Result', $result->id) }}" method="POST">
                                             @csrf
                                             @method('delete')
@@ -71,11 +69,10 @@
                                     </div>
                                 </td>
                             </tr>
-                            @empty
-                            <tr>
-                                <td colspan="7" class="text-center">{{ __('Data Empty') }}</td>
-                            </tr>
-                            @endforelse
+                            @endforeach
+                            @endif
+                            @endforeach
+                        @endif
                         </tbody>
                     </table>
                 </div>
@@ -126,5 +123,4 @@
 })
 </script>
 @endpush
-@endsection
     @endcan

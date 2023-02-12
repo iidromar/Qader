@@ -18,24 +18,63 @@ class InstitAdminController extends Controller
 {
     public function index(){
         $courses = Course::where('creator', Auth::user()->id)->get();
-        $maid = $courses->count();
+        $maid = 0;
+        if($courses){
+            $maid = $courses->count();
+        }else{
+            $maid = 0;
+        }
         $earnings = 0;
+        $no_action = 0;
+        $approved = 0;
+        $rejected = 0;
+        $quizzes = 0;
+        $prices = 0;
+        $numOfTakens = 0;
+        $counterArray =0;
+        $countAll = [];
         if($courses){
             foreach ($courses as $c){
+                $prices = $prices + $c->price;
                 $taken = DB::table('course_taken_by')->where('course_id', $c->id)->get();
-                foreach ($taken as $t){
-                    $earnings = $earnings + $c->price;
+                if($taken){
+                    foreach ($taken as $t){
+                        $earnings = $earnings + $c->price;
+                        $numOfTakens++;
+
+                    }
+                    $countAll[$counterArray] = $numOfTakens;
+
+                    $quizzes = $quizzes + DB::table('quizzes')->where('course_id', $c->id)->get()->count();
                 }
-            }
-            foreach ($courses as $c){
-                $req = DB::table('course_requested')->where('course_id', $c->id)->get();
+                $counterArray++;
+                $numOfTakens = 0;
+            }}
+
+        $req = DB::table('course_requested')->where('instit_id', Auth::user()->id)->get();
+        foreach ($req as $r){
+            $status = $r->accepted;
+            switch ($status){
+                case('0'):
+                    $no_action++;
+                    break;
+                case('1'):
+                    $approved++;
+                    break;
+                case('2'):
+                    $rejected++;
+                    break;
+                default:
+                    break;
             }
         }
 
+
         $earnings = number_format($earnings, 2);
+        $topFive = $courses->sortByDesc('price')->take(5);
+        $topCourses = $courses->take(8);
 
-
-        return view('InstitAdmin.dashboard', compact('earnings', 'maid'));
+        return view('InstitAdmin.dashboard', compact('earnings', 'maid', 'no_action', 'approved', 'rejected', 'quizzes', 'topFive','prices', 'topCourses', 'countAll'));
     }
     public function allCourses()
     {

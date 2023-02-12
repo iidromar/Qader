@@ -117,10 +117,6 @@ Route::delete('/deleteQuestion/{id}' ,  [QuestionController::class , 'destroy'])
 
 // results
 Route::get('/allResult', [ResultController::class , 'index'])->name('course.result');
-Route::get('/createResult', [ResultController::class , 'create'])->name('create.Result');
-Route::post('/storeResult', [ResultController::class , 'store'])->name('store.Result');
-Route::get('/editResult/{id}', [ResultController::class , 'edit'])->name('edit.Result');
-Route::PUT('/updateResult/{id}' , [ResultController::class , 'update'])->name('update.Result');
 Route::delete('/deleteResultn/{id}' ,  [ResultController::class , 'destroy'])->name('delete.Result');
 Route::get('/showResult/{id}', [ResultController::class , 'show'])->name('show.Result');
 
@@ -136,3 +132,13 @@ Route::post('test',[TestController::class, 'store'])->name('client.test.store');
 ///new
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/HomePage', [HomePageController::class, 'home'])->name('home.index');
+Route::get('/Home/Courses', [HomePageController::class, 'courses'])->name('home.courses');
+Route::get('/Home/InstitCompany', [HomePageController::class, 'InstitCompany'])->name('home.InstitCompany');
+Route::get('/Home/Company', [HomePageController::class, 'company'])->name('home.company');
+
+Route::get('/employeeAllCourses/{id?}', [EmployeeController::class , 'allCourses'])->name('employee.allCourses');
+Route::get('/employeeCourseDetails/{id}', [EmployeeController::class , 'courseDetails'])->name('employee.courseDetails');
+//Employee results
+Route::get('/employeeResult', [EmployeeController::class , 'employeeResult'])->name('employee.result');
+Route::get('/showEmployeeResult/{id}', [EmployeeController::class , 'showResult'])->name('showEmployee.Result');

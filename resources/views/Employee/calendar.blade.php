@@ -77,7 +77,7 @@
                     right: 'month, agendaWeek, agendaDay',
                 },
                 events: booking,
-
+            
             });
             $('.fc-event').css('background-color', 'red');
         });
@@ -89,7 +89,7 @@
                 }
             });
             var booking = @json($events);
-
+           
             for( i=0; i < booking.length; i++){
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -97,7 +97,9 @@
         var yyyy = today.getFullYear();
         var end_date = moment(booking[i]['end']).format('YYYY-MM-DD');
         today = yyyy + '-' + mm + '-' + dd;
+      
         var id = booking[i]['id'];
+       
         if(end_date<today){
             $.ajax({
                             url:"{{ route('calendar.destroy', '') }}" +'/'+ id,
