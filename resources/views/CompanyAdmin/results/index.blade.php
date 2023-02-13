@@ -6,42 +6,37 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-   
+
 
     <!-- Content Row -->
         <div class="card">
             <div class="card-header py-3 d-flex">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    {{ __('result') }}
+                    Results
                 </h6>
-             
+
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover datatable datatable-result" cellspacing="0" width="100%">
+                    <table id="example" class="table key-buttons text-md-nowrap">
                         <thead>
-                            <tr>
-                                <th width="10">
-
-                                </th>
-                                <th>No</th>
-                                <th>User</th>
-                                <th>Points</th>
-                                <th>Course Name</th>
-                                <th>Action</th>
-                            </tr>
+                        <tr>
+                            <th class="border-bottom-0">No</th>
+                            <th class="border-bottom-0">User</th>
+                            <th class="border-bottom-0">Points</th>
+                            <th class="border-bottom-0">Course Name</th>
+                            <th class="border-bottom-0">Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                          
+
                         @if(count($users)>0)
                            @foreach($users as $user)
                            @if(count($user->userResults)>0)
                            @foreach($user->userResults as $result)
-                         
-                            <tr data-entry-id="{{ $result->id }}">
-                                <td>
 
-                                </td>
+                            <tr data-entry-id="{{ $result->id }}">
+
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 @php
@@ -49,31 +44,55 @@
                                 @endphp
                                 <td>{{number_format($presentage, 1, '.' ,'') }} %</td>
                                 <td>
-                                 
+
                                       {{  $result->course->name }}
-                                      
+
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-sm">
                                         <a href="{{ route('show.Result', $result->id) }}" class="btn btn-success">
                                             <i class="fa fa-eye"></i>
                                         </a>
-                                      
-                                        <form onclick="return confirm('are you sure ? ')" class="d-inline" action="{{ route('delete.Result', $result->id) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <button class="btn btn-danger" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        <a class="dropdown-item btn bg-danger text-white" href="{{ route('delete.Result', $result->id) }}" data-toggle="modal" data-target="#deleteModal" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
-                            @endforeach
+                            <!-- delete Modal-->
+                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete?</h5>
+                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">Select "Delete" below if you want to delete the result.</div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                            <a class="btn btn-danger" href="{{ route('delete.Result', $result->id) }}" onclick="event.preventDefault();
+                                                     document.getElementById('delete-form').submit();">Delete</a>
+                                        </div>
+                                        <form id="delete-form" action="{{ route('delete.Result', $result->id) }}" method="POST" class="d-none">
+                                            @method('Delete')
+                                            @csrf
+                                            {{ method_field('Delete') }}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                           @endforeach
                             @endif
                             @endforeach
                         @endif
                         </tbody>
+                        <tfoot>
+
+                        </tfoot>
                     </table>
                 </div>
             </div>

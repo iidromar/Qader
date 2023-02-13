@@ -33,7 +33,7 @@ use \App\Http\Controllers\InstitAdmin\TestController;
 Route::get('/test', [App\Http\Controllers\testController::class, 'test']);
 Auth::routes();
 
-Route::get('/', [HomePageController::class, 'index'])->name('homepage');
+//Route::get('/', [HomePageController::class, 'index'])->name('homepage');
 Route::get('/gate', [AuthorizationController::class, 'index'])->name('gate')->middleware('can:isCompanyAdmin');
 
 Route::get('/CompanyEmployees', [CompanyAdminController::class, 'all_employees'])->name('all_employees');
@@ -103,6 +103,12 @@ Route::patch('calendar/update/{id}', [EmployeeController::class, 'update'])->nam
 Route::delete('calendar/destroy/{id}', [EmployeeController::class, 'destroy'])->name('calendar.destroy');
 
 
+Route::post('/searchEngineCourseEmployee', [EmployeeController::class, 'searchEngineEE'])->name('searchEngineCourseEmployee');
+Route::get('/Employeeprofile', [EmployeeController::class, 'Employeeprofile'])->name('Employeeprofile');
+Route::get('/changePasswordEmployee', [EmployeeController::class, 'changePassword'])->name('changePasswordEmployee');
+Route::post('/changePasswordSendingEmployee', [EmployeeController::class, 'changePasswordSending'])->name('changePasswordSendingEmployee');
+
+
 
 ///new
 // questions
@@ -132,7 +138,7 @@ Route::post('test',[TestController::class, 'store'])->name('client.test.store');
 ///new
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/HomePage', [HomePageController::class, 'home'])->name('home.index');
+Route::get('/', [HomePageController::class, 'home'])->name('home.index');
 Route::get('/Home/Courses', [HomePageController::class, 'courses'])->name('home.courses');
 Route::get('/Home/InstitCompany', [HomePageController::class, 'InstitCompany'])->name('home.InstitCompany');
 Route::get('/Home/Company', [HomePageController::class, 'company'])->name('home.company');

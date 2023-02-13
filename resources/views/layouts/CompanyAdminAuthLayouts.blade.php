@@ -21,7 +21,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('homepage') }}">
+            <a class="navbar-brand" href="{{ route('home.index') }}">
                 <img src="{{ asset('HomePageFrontend/img/QaderLogo.png') }}" alt="" height="80" width="200"/>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

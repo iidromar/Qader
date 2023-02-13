@@ -34,7 +34,6 @@
                             @forelse($results as $result)
                             <tr data-entry-id="{{ $result->id }}">
                                 <td>
-
                                 </td>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $result->user->name }}</td>

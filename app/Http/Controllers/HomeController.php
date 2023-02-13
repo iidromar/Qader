@@ -30,8 +30,6 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->role == '1') {
-
-
             $counter_of_courses_scheduled = 0;
             $emp = User::where('code', '=', auth()->user()->code)->where('role', '=', '0')->get();
             if ($emp) {
@@ -182,7 +180,40 @@ class HomeController extends Controller
             return view('CompanyAdmin.dashboard', compact('invoices', 'counter_of_courses_scheduled', 'vat', 'data_requested', 'calcProg', 'totemp', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec', 'accepted_req', 'rejected_req', 'no_action'));
         }
         if(Auth::user()->role == '0'){
-            return view('Employee.dashboard');
+            $courses = DB::table('course_taken_by')->where('employee_id', Auth::user()->id)->get();
+            $data = new Collection();
+            $num_of_courses = 0;
+            $progTotal = 0;
+            $numOfEmp = 0;
+            $calcProg = 0;
+            $quizzes = 0;
+            if ($courses){
+                $num_of_courses = $courses->count();
+                foreach ($courses as $c){
+                   $temp = DB::table('courses')->where('id', $c->course_id)->get();
+                   if ($temp){
+                       $data = $data->merge($temp);
+                   }
+                }
+                foreach ($courses as $to){
+                    $numOfEmp++;
+                    $progTotal = $progTotal + $to->progress;
+                }
+                $tt = DB::table('results')->where('user_id', Auth::user()->id)->get()->count();
+            }
+            if ($data){
+                $data_displayed = $data->take(6);
+            }
+            if($numOfEmp){
+                $calcProg = ($progTotal / $numOfEmp);
+            }
+            else{
+                $calcProg = 0;
+            }
+
+
+
+            return view('Employee.dashboard', compact('data_displayed', 'num_of_courses', 'calcProg', 'tt'));
         }
         if(Auth::user()->role == '2'){
             $courses = Course::where('creator', Auth::user()->id)->get();

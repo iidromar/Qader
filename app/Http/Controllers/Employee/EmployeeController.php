@@ -10,13 +10,27 @@ use App\Models\quiz;
 use App\Models\question;
 use App\Models\Result;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeController extends Controller
 {
     public function index(){
-        return view('InstitAdmin.index');
+        $courses = DB::table('course_taken_by')->where('employee_id', Auth::user()->id)->get();
+        $data = new Collection();
+        $num_of_courses = 0;
+        if ($courses){
+            $num_of_courses = $courses->count();
+            foreach ($courses as $c){
+                $temp = DB::table('courses')->where('id', $c->course_id)->get();
+                $data = $data->merge($temp);
+            }
+        }
+        if ($data){
+            $data_displayed = $data->take(6);
+        }        return view('Employee.dashboard', compact('data_displayed', 'num_of_courses'));
     }
 
     public function calendarIndex($id=null)
@@ -90,6 +104,49 @@ class EmployeeController extends Controller
     {
         $result=result::findOrFail($id);
         return view('Employee.results.show', compact('result'));
+    }
+    public function searchEngineEE(Request $request){
+        $course = Course::where('name','LIKE',"%{$request->search}%");
+        if($course == null){
+            return back()->with("search_error", "Can't find any Course!");
+        }
+        $cc = $course->first();
+        $temp = DB::table('course_taken_by')->where('employee_id', Auth::user()->id)->where('course_id', $cc->id)->get();
+        if(!$temp){
+            return back()->with("search_error", "Can't find any Course!");
+        }
+        $temp_2 = $temp->first();
+        if($temp_2){
+                return redirect()->route('employee.courseDetails', ['id' => $temp_2->id]);
+        }
+        return back()->with("search_error", "Can't find any Course!");
+    }
+    public function Employeeprofile(){
+        return view('Employee.profile');
+    }
+    public function changePassword(){
+        return view('Employee.changePassword');
+    }
+    public function changePasswordSending(Request $request){
+        # Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, Auth::user()->password)){
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+
+
+        #Update the new Password
+        User::whereId(Auth::user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status", "Password changed successfully!");
     }
 
 

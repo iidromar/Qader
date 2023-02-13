@@ -52,7 +52,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('index') }}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
             <div class="sidebar-brand-icon">
                 <img id="QaderLogoSideBar" src="{{ asset('HomePageFrontend/img/QaderLogo.png') }}" alt="" height="80" width="200"/>
             </div>
@@ -64,7 +64,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="{{ route('index') }}">
+            <a class="nav-link" href="{{ route('home') }}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -133,13 +133,7 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Options:</h6>
-                    <a class="collapse-item" href="login.html">Employee CV</a>
-                    <a class="collapse-item" href="register.html">Employee Evaluation</a>
-                    <a class="collapse-item" href="forgot-password.html">Company Code</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">Courses Institution</a>
-                    <a class="collapse-item" href="blank.html">Approved Courses</a>
+                    <a class="collapse-item" href="{{ route('course.result') }}">All Employees results</a>
                 </div>
             </div>
         </li>

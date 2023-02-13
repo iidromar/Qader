@@ -13,7 +13,7 @@ class quiz extends Model
         'course_id',
     ];
     public function course(){
-        return $this->belongsTo(course::class);
+        return $this->belongsTo(course::class, 'course_id', 'id');
     }
     public function quizquestions(){
         return $this->hasMany(question::class);
