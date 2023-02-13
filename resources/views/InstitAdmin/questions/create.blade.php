@@ -6,7 +6,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    
+
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -34,14 +34,14 @@
 
                     <div class="form-group">
                         <label for="exampleSelectGender">Course</label>
-                        <select name="course_id" class="form-control" id="exampleSelectGender">
+                        <select name="course_id" class="form-control" id="exampleSelectGender" required>
                         <option value="" disabled selected>Choose Option</option>
-                        @if(count($courses)>0)  
+                        @if(count($courses)>0)
                         @foreach($courses as $course){
                                 <option value="{{$course->id}}" >{{$course->name}}</option>
                             }
                             @endforeach
-                            
+
                             @else
                             <option value=""  >No Courses</option>
                             @endif
@@ -53,16 +53,16 @@
                         <input type="text" class="form-control" id="question_text" placeholder="{{ __('Quiz Name') }}" name="Quiz_name" value="{{ old('Quiz_name') }}" required/>
                     </div>
 
-                
+
                     <div class="lesson-content" ></div>
                       <div class="form-group">
                       <h1><a class='btn btn-primary' id="addfield" href="add-new-form">+Add a question</a></h1>
-                      </div>  
+                      </div>
                     <button type="submit" class="btn btn-primary btn-block">{{ __('Save') }}</button>
                 </form>
             </div>
             </div> </div>
-    
+
                         </br>
 
     <!-- Content Row -->
@@ -71,25 +71,25 @@
 
 @section('scripts')
   <script>
-$(function () { 
+$(function () {
     var duplicates = -1,
-    
+
         $original = $('.lesson-content').clone(true);
 
     function DuplicateForm () {
         var newForm;
 
-        duplicates++; 
+        duplicates++;
         newForm = $original.clone(true).insertBefore($('h1'));
-        
 
- 
-        $.each($('input', newForm), function(i, item) {            
+
+
+        $.each($('input', newForm), function(i, item) {
             $(item).attr('name', $(item).attr('name') + duplicates);
         });
 
-        
-        $('<h5>Question ' + (duplicates + 1) + '</h5>'+ 
+
+        $('<h5>Question ' + (duplicates + 1) + '</h5>'+
         ' <div class="form-group">'+
         ' <label for="question_text">{{ __('question text') }}</label>'+
         '<input type="text" class="form-control" id="question_text" placeholder="{{ __('question text') }}" name="question_text[]" value="{{ old('question_text') }}" required />'+
@@ -121,21 +121,21 @@ $(function () {
         '</div>'+
         ' </div>'
         ).insertBefore(newForm);
-       
+
     }
-    
+
     $('a[href="add-new-form"]').on('click', function (e) {
         e.preventDefault();
         DuplicateForm();
-        
-      
+
+
     });
 });
   </script>
-  
+
   @endsection
 
 @endsection
 
-   
+
 @endcan

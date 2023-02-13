@@ -60,7 +60,7 @@
                       </div>
                         <div class="form-group">
                             <label for="exampleInputName1">Price</label>
-                            <input type="number" class="form-control" name="price" id="exampleInputName1" placeholder="Price">
+                            <input type="number" class="form-control" name="price" min="0" id="exampleInputName1" placeholder="Price">
                         </div>
                       <div class="lesson-content" >
                      </div>

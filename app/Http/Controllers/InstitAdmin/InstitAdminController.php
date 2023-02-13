@@ -79,7 +79,7 @@ class InstitAdminController extends Controller
     }
     public function allCourses()
     {
-        $courses = course::simplepaginate(5);
+        $courses = Course::where('creator', Auth::user()->id)->get();
         return view('InstitAdmin.index' , compact('courses'));
     }
     public function show($id)

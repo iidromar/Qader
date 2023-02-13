@@ -210,9 +210,6 @@ class HomeController extends Controller
             else{
                 $calcProg = 0;
             }
-
-
-
             return view('Employee.dashboard', compact('data_displayed', 'num_of_courses', 'calcProg', 'tt'));
         }
         if(Auth::user()->role == '2'){

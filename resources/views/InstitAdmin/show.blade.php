@@ -26,7 +26,7 @@
 
 @if(Session::has('change-success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>success!</strong>{{Session::get('alert-class', 'Course Updated Successfully') }}
+  <strong>success! </strong>{{Session::get('alert-class', 'Course Updated Successfully') }}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>

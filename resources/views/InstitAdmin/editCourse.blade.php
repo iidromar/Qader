@@ -64,7 +64,7 @@
                       </div>
                        <div class="form-group">
                            <label for="exampleInputName1">Price</label>
-                           <input type="number" class="form-control" value="{{ old('price', $courses->price) }}"name="price" id="exampleInputName1" placeholder="Price">
+                           <input type="number" class="form-control" min="0" value="{{ old('price', $courses->price) }}"name="price" id="exampleInputName1" placeholder="Price">
                        </div>
 
                       @if( $lessons->count()>0)

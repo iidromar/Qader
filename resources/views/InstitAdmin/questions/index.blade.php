@@ -39,7 +39,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($quizs as $quiz)
+                            @forelse($data as $quiz)
                             <tr data-entry-id="{{ $quiz->id }}">
                                 <td>
 

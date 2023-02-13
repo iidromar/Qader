@@ -71,7 +71,7 @@
                       </tbody>
                     </table>
                     <br>
-                    {{$courses->links()}}
+
                     @else
                     <h1>No Course found.</h1>
                     @endif

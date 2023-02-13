@@ -1,5 +1,7 @@
 @extends('layouts.CompanyAdminLayouts')
 @can('isCompanyAdmin')
+    @section('title', 'All Employee')
+
     @section('content')
         <!-- Internal Data table css -->
 

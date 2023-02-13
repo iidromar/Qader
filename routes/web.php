@@ -148,3 +148,6 @@ Route::get('/employeeCourseDetails/{id}', [EmployeeController::class , 'courseDe
 //Employee results
 Route::get('/employeeResult', [EmployeeController::class , 'employeeResult'])->name('employee.result');
 Route::get('/showEmployeeResult/{id}', [EmployeeController::class , 'showResult'])->name('showEmployee.Result');
+
+
+Route::post('/progress', [EmployeeController::class, 'progressStore'])->name('progress.store');

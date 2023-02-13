@@ -1,5 +1,6 @@
 @extends('layouts.InstitAdminLayouts')
 
+
 @can('isInstitAdmin')
 
 @section('content')
@@ -21,7 +22,7 @@
         <div class="card shadow">
             <div class="card-header">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h2 class="h3 mb-0 text-gray-800">{{ __('edit Quiz')}}</h2>
+                    <h3 class="h3 mb-0 text-gray-800">{{ __('edit Quiz')}}</h3>
                     <a href="{{route('course.question')}}" class="btn btn-primary btn-sm shadow-sm">{{ __('Go Back') }}</a>
                 </div>
             </div>
@@ -38,8 +39,8 @@
                         @foreach($courses as $course)
                                 <option value="{{$course->id}}" {{$course->id == $quiz->course_id ? 'selected' : ''}} >{{$course->name}}</option>
                             @endforeach
-                            
-                      
+
+
                         </select>
 
                 </div>
@@ -48,10 +49,10 @@
                         <label for="question_text">{{ __('Quiz Name') }}</label>
                         <input type="text" class="form-control" id="name" placeholder="{{ __('Quiz Name') }}" name="Quiz_name" value="{{ old('name', $quiz->name) }}" required />
                     </div>
-                  
 
- 
-                @if( $questions->count()>0) 
+
+
+                @if( $questions->count()>0)
                   @foreach($questions as $question)
 
                   <div class="form-group">
@@ -63,22 +64,22 @@
                     <div class="row">
 
                     @foreach($options as $option)
-                    
-                    @if( $option->question_id==$question->id) 
-                    @if(  $option['points']==1) 
-                    @php  $index=1   @endphp 
+
+                    @if( $option->question_id==$question->id)
+                    @if(  $option['points']==1)
+                    @php  $index=1   @endphp
                 <div class="col-sm-6">
                     <div class="form-group">
-                   
+
                         <label for="">Enter Option  {{ $index }} (Right Answer)</label>
                         <input type="text" required="required" name="option_{{ $index }}[]" placeholder="Enter Question" class="form-control" value="{{ old('option_text', $option['option_text']) }} " required>
                         <input type="hidden" name="id_option_{{ $index }}[]" placeholder="Enter Question" class="form-control" value="{{ $option['id']}} " >
                     </div>
                 </div>
                 @else
-                @php    $index++   @endphp 
+                @php    $index++   @endphp
 
- 
+
                 <div class="col-sm-6">
                         <div class="form-group">
                             <label for="">Enter Option {{ $index }}  (False Answer)</label>
@@ -87,13 +88,13 @@
                         </div>
                     </div>
                     @endif
-                    @endif 
+                    @endif
 
                     @endforeach
                     </div>
                 @endforeach
-                
-                      @endif 
+
+                      @endif
                       <div class="lesson-content" ></div>
                       <div class="form-group">
                       <h1><a class='btn btn-primary' id="addfield" href="add-new-form">+Add a question</a></h1>
@@ -102,7 +103,7 @@
                 </form>
             </div>
         </div>
-    
+
 
     <!-- Content Row -->
 
@@ -110,24 +111,24 @@
 
 @section('scripts')
   <script>
-$(function () { 
+$(function () {
     var duplicates = -1,
-    
+
         $original = $('.lesson-content').clone(true);
 
     function DuplicateForm () {
         var newForm;
 
-        duplicates++; 
+        duplicates++;
         newForm = $original.clone(true).insertBefore($('h1'));
-        
 
- 
-        $.each($('input', newForm), function(i, item) {            
+
+
+        $.each($('input', newForm), function(i, item) {
             $(item).attr('name', $(item).attr('name') + duplicates);
         });
 
-        
+
         $(
         ' <div class="form-group">'+
         ' <label for="question_text">{{ __('question text') }}</label>'+
@@ -160,21 +161,20 @@ $(function () {
         '</div>'+
         ' </div>'
         ).insertBefore(newForm);
-       
+
     }
-    
+
     $('a[href="add-new-form"]').on('click', function (e) {
         e.preventDefault();
         DuplicateForm();
-        
-      
+
+
     });
 });
   </script>
-  
+
   @endsection
 
 
 @endsection
-   
 @endcan

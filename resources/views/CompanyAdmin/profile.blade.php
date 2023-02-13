@@ -1,5 +1,7 @@
 @extends('layouts.CompanyAdminLayouts')
 @can('isCompanyAdmin')
+    @section('title', 'Profile')
+
     @section('content')
 
         <div class="container">

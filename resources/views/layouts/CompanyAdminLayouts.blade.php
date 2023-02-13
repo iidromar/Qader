@@ -29,7 +29,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Welcome, {{ \Illuminate\Support\Facades\Auth::user()->name }}</title>
+    <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
 
@@ -235,11 +235,6 @@
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
-{{--                            <a class="dropdown-item" href="#">--}}
-{{--                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>--}}
-{{--                                Settings--}}
-{{--                            </a>--}}
-
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -256,24 +251,16 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 @yield('content')
-
         </div>
         <!-- End of Main Content -->
 
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Qader 2023</span>
-                        </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
+            
     </div>
     <!-- End of Content Wrapper -->
 
 </div>
+
 <!-- End of Page Wrapper -->
 
 <!-- Scroll to Top Button-->

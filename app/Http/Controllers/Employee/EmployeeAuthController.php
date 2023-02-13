@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeAuthController extends Controller
 {
@@ -24,7 +27,39 @@ class EmployeeAuthController extends Controller
         // login code
 
         if(\Auth::attempt($request->only('email','password'))){
-            return view('Employee.dashboard');
+
+            $courses = DB::table('course_taken_by')->where('employee_id', Auth::user()->id)->get();
+            $data = new Collection();
+            $num_of_courses = 0;
+            $progTotal = 0;
+            $numOfEmp = 0;
+            $calcProg = 0;
+            $quizzes = 0;
+            if ($courses){
+                $num_of_courses = $courses->count();
+                foreach ($courses as $c){
+                    $temp = DB::table('courses')->where('id', $c->course_id)->get();
+                    if ($temp){
+                        $data = $data->merge($temp);
+                    }
+                }
+                foreach ($courses as $to){
+                    $numOfEmp++;
+                    $progTotal = $progTotal + $to->progress;
+                }
+                $tt = DB::table('results')->where('user_id', Auth::user()->id)->get()->count();
+            }
+            if ($data){
+                $data_displayed = $data->take(6);
+            }
+            if($numOfEmp){
+                $calcProg = ($progTotal / $numOfEmp);
+            }
+            else{
+                $calcProg = 0;
+            }
+            return view('Employee.dashboard', compact('data_displayed', 'num_of_courses', 'calcProg', 'tt'));
+
         }
 
         return redirect('Employeelogin')->withError('Login details are not valid');
@@ -65,7 +100,39 @@ class EmployeeAuthController extends Controller
 
             if(\Auth::attempt($request->only('email','password'))){
                 session()->flash('Add', 'Registered Successfully.');
-                return view('Employee.dashboard');
+
+                $courses = DB::table('course_taken_by')->where('employee_id', Auth::user()->id)->get();
+                $data = new Collection();
+                $num_of_courses = 0;
+                $progTotal = 0;
+                $numOfEmp = 0;
+                $calcProg = 0;
+                $quizzes = 0;
+                if ($courses){
+                    $num_of_courses = $courses->count();
+                    foreach ($courses as $c){
+                        $temp = DB::table('courses')->where('id', $c->course_id)->get();
+                        if ($temp){
+                            $data = $data->merge($temp);
+                        }
+                    }
+                    foreach ($courses as $to){
+                        $numOfEmp++;
+                        $progTotal = $progTotal + $to->progress;
+                    }
+                    $tt = DB::table('results')->where('user_id', Auth::user()->id)->get()->count();
+                }
+                if ($data){
+                    $data_displayed = $data->take(6);
+                }
+                if($numOfEmp){
+                    $calcProg = ($progTotal / $numOfEmp);
+                }
+                else{
+                    $calcProg = 0;
+                }
+                return view('Employee.dashboard', compact('data_displayed', 'num_of_courses', 'calcProg', 'tt'));
+
             }
 
         }

@@ -9,20 +9,33 @@ use Illuminate\Http\Request;
 use App\Models\course;
 use App\Models\Option;
 use App\Models\quiz;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class QuestionController extends Controller
 {
 
     public function index(): View
     {
-        $quizs = quiz::all();
-
-        return view('InstitAdmin.questions.index', compact('quizs'));
+//        $quizs = quiz::all();
+        $courses = Course::where('creator', Auth::user()->id)->get();
+        $data = new Collection();
+        if ($courses){
+            foreach ($courses as $c){
+                $quizs = quiz::where('course_id', $c->id)->get();
+                if ($quizs){
+                    $data = $data->merge($quizs);
+                }
+            }
+        }
+        return view('InstitAdmin.questions.index', compact('data'));
     }
 
     public function create(): View
     {
-        $courses = course::all();
-
+//        $courses = course::all();
+        $courses = DB::table('courses')->where('creator', Auth::user()->id)->get();
         return view('InstitAdmin.questions.create', compact('courses'));
     }
 
@@ -89,7 +102,7 @@ class QuestionController extends Controller
     public function edit($id)
     {
         $quiz=quiz::find($id);
-        $courses=course::all();
+        $courses = DB::table('courses')->where('creator', Auth::user()->id)->get();
         $questions=question::where('quiz_id' , $id)->get();
         $options=option::where('quiz_id' , $id)->get();
 

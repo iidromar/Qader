@@ -32,22 +32,22 @@
                                 </thead>
                                 <tbody>
                                 @php
-                                $c = 0;
+                                    $c = 0;
                                 @endphp
                                 @foreach($related as $r)
-                                <tr>
-                                    <td>{{ $employee->name }}</td>
-                                    <td>{{ $r->name }}</td>
-                                    <td>{{ $time[$c] }}</td>
-                                    <td>{{ $progress[$c]}}%</td>
-                                    <td>{{ $deadline[$c] }}</td>
-                                    <td>{{ $r->price }}</td>
+                                    <tr>
+                                        <td>{{ $employee->name }}</td>
+                                        <td>{{ $r->name }}</td>
+                                        <td>{{ $time[$c] }}</td>
+                                        <td>{{ ($progress[$c]/$lesson[$c])*100}}%</td>
+                                        <td>{{ $deadline[$c] }}</td>
+                                        <td>{{ $r->price }}</td>
 
-                                    <td>
-                                        <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">View</a>
-                                    </td>
+                                        <td>
+                                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">View</a>
+                                        </td>
 
-                                </tr>
+                                    </tr>
                                     @php
                                         $c = $c +1
                                     @endphp

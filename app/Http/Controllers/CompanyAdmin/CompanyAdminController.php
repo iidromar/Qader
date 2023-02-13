@@ -7,6 +7,8 @@ use App\Http\Middleware\CompanyAdmin;
 use App\Models\Company;
 use App\Models\User;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\checkProgress;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -175,30 +177,35 @@ class CompanyAdminController extends Controller
        $comp = Company::where('code', '=', auth()->user()->code)->get()->first();
        return view('CompanyAdmin.company_employees', compact('emp', 'comp'));
    }
-   public function employee_progress($id=null){
-       $employee = User::find($id);
-       $temp = DB::table('course_taken_by')->where('employee_id', '=', $id)->get();
-       $related = new Collection();
-       $time = [];
-       $progress = [];
-       $deadline = [];
-       $counter = 0;
+    public function employee_progress($id=null){
+        $employee = User::find($id);
+        $temp = DB::table('course_taken_by')->where('employee_id', '=', $id)->get();
+        $related = new Collection();
+        $time = [];
+        $lesson=[];
+        $progress = [];
+        $deadline = [];
+        $counter = 0;
 
-       if($temp){
-           foreach ($temp as $t){
-               $course = Course::where('id', '=', $t->course_id)->get();
-               $related = $related->merge($course);
-               $time[$counter] = $t->created_at;
-               $progress[$counter] = $t->progress;
-               $deadline[$counter] = $t->deadline;
-               $counter = $counter +1;
+        if($temp){
+            foreach ($temp as $t){
+                $course = Course::where('id', '=', $t->course_id)->get();
+                $lessons=lesson::where('course_id' ,$t->course_id)->get();
+                $prog=checkProgress::where('course_id' ,$t->course_id)->where('employee_id' , $id)->get();
+                $related = $related->merge($course);
+                $time[$counter] = $t->created_at;
+                $lesson[$counter] = count($lessons);
+                $progress[$counter] = count($prog);
+                $deadline[$counter] = $t->deadline;
+                $counter = $counter +1;
 
-           }
-           return view('CompanyAdmin.employee_progress', compact('related', 'employee', 'time', 'progress', 'deadline'));
-       }
+            }
 
-       return view('CompanyAdmin.employee_progress');
-   }
+            return view('CompanyAdmin.employee_progress', compact('related', 'employee', 'time', 'progress', 'deadline' ,'lesson'));
+        }
+
+        return view('CompanyAdmin.employee_progress');
+    }
    public function give_training($id=null){
        $employee = User::find($id);
        $options = Course::getPossibleCategories();
