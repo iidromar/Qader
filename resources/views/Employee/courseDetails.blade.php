@@ -192,12 +192,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="panel-content">
-                                                    @if (Route::has('client.test' ,$courses->id))
                                                         @if(sizeof($results)==0)
                                                             <div class="panel-content-inner"> <a class="btn btn-primary" id="quizbtn"  href="{{route('client.test' ,$courses->id)}}" >Start Quiz</a></div>
-                                                        @else
+                                                        @elseif(sizeof($results)>0)
                                                             <div class="panel-content-inner">You Already Took The Quiz</div>
-                                                        @endif
                                                     @else
                                                         <div class="panel-content-inner">No Quiz</div>
                                                     @endif</div>

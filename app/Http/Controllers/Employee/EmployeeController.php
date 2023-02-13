@@ -202,7 +202,6 @@ class EmployeeController extends Controller
             $percentage = 0;
             if ($total != 0){
                 $percentage = ($num_of_finished/$total)*100;
-
             }else{
                 $percentage =0;
             }
