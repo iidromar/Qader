@@ -21,7 +21,7 @@
 	<!-- Header -->
 
 	<header class="header">
-		
+
 
 		<!-- Header Content -->
 		<div class="header_container">
@@ -35,30 +35,30 @@
 								</a>
 							</div>
 							<nav class="main_nav_contaner">
-								<ul class="main_nav">
-									<li><a href="{{route('home.index')}}">Home</a></li>
-									<li class="active"><a href="{{route('home.courses')}}">Courses</a></li>
-									<li><a href="{{route('home.InstitCompany')}}">InstituteCompany</a></li>
-									<li><a href="{{route('home.company')}}">Company</a></li>
-									
-								</ul>
+                                <ul class="main_nav">
+                                    <li ><a href="{{route('home.index')}}">Home</a></li>
+                                    <li class="active"><a href="{{route('home.courses')}}">Courses</a></li>
+                                    <li><a href="{{route('home.InstitCompany')}}">Institutions</a></li>
+                                    <li><a href="{{route('home.company')}}">Companies</a></li>
+
+                                </ul>
 							</nav>
 							<div class="header_content_right ml-auto text-right">
-								
+
 								</div>
 
 								<!-- Hamburger -->
 
 								<div class="user">
 								<div class="dropdown">
-  
+
 							<a class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
-							
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="{{ route('Employeelogin') }}">LogIn as an Employee</a>
-								<a class="dropdown-item" href="{{ route('login') }}">LogIn as a CompanyAdmin</a>
-								<a class="dropdown-item" href="{{ route('Institlogin') }}">LogIn as a InstitCompany</a>
-							</div>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="{{ route('Employeelogin') }}">Login as an Employee</a>
+                                        <a class="dropdown-item" href="{{ route('login') }}">Login as a Company Admin</a>
+                                        <a class="dropdown-item" href="{{ route('Institlogin') }}">Login as an Institution Admin</a>
+                                    </div>
 							</div></div>
 								<div class="hamburger menu_mm">
 
@@ -72,7 +72,7 @@
 		</div>
 
 	</header>
-	
+
 <br><br><br>
 	<!-- Language -->
 
@@ -83,11 +83,11 @@
 					<div class="language_title">Learn New Skills Easily</div>
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
 
-    
+
 	<!-- Courses -->
 
 	<div class="courses">
@@ -101,242 +101,203 @@
         <div class="course">
             <div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_'.($loop->index+1).'.jpg') }}" alt=""></div>
             <div class="course_body">
-                <div class="course_title"><a href="course.html"> {{$da->name,10}} </a></div>
+                <div class="course_title"> {{$da->name,10}}</div>
                 <div class="course_info">
                     <ul>
-                        <li><a href="instructors.html">{{$names[$loop->index]['name'] }}</a></li>
-                        <li><a href="#">{{$da->category}}</a></li>
+                        <li>{{$names[$loop->index]['name'] }}</li>
+                        <li>{{$da->category}}</li>
+                        <li>Price: {{$da->price}}</li>
                     </ul>
                 </div>
                 <div class="course_text">
                     <p>{{Str::limit($da->description,30)}}.</p>
                 </div>
             </div>
-            <div class="course_footer d-flex flex-row align-items-center justify-content-start">
-                <div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-                <div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-                <div class="course_mark course_free trans_200"><a href="#">{{$da->price}}</a></div>
-            </div>
+
         </div>
     </div>
 
     @endforeach
     @else
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_4.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Project Management</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">Thinkific</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Project Management...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark course_free trans_200"><a href="#">Free</a></div>
-						</div>
-					</div>
-				</div>
 
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_5.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Intercultural Communication Training.</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">LearnWorlds</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Intercultural Communication Training...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark course_free trans_200"><a href="#">Free</a></div>
-						</div>
-					</div>
-				</div>
 
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_6.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Writing for the Web Training.</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">Kajabi</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Writing for the Web Training...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark trans_200"><a href="#">$45</a></div>
-						</div>
-					</div>
-				</div>
+                    <!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img style="object-fit: fill" src="{{ asset('HomePageFrontend/images/mysql.jpg') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://www.w3schools.com/MySQL/mysql_intro.asp">Mysql</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>Qintar Tech</li>
+                                        <li>IT Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>
+                                        MySQL is a relational database ...</p>
+                                </div>
+                            </div>
 
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_7.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Time Management Training.</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">LearnDash</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Time Management Training...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark course_free trans_200"><a href="#">Free</a></div>
-						</div>
-					</div>
-				</div>
+                        </div>
+                    </div>
 
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_8.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Conflict Management Training.</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">WizIQ</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Conflict Management Training...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark course_free trans_200"><a href="#">Free</a></div>
-						</div>
-					</div>
-				</div>
+                    <!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img style="object-fit: fill" src="{{ asset('HomePageFrontend/images/laravel.jpg') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://laravel.com/">Laravel</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>Tuwaiq</li>
+                                        <li>IT Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>Laravel is a web application framework...</p>
+                                </div>
+                            </div>
 
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_9.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Active Listening Skills Training</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">Ruzuku</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Active Listening Skills Training...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark trans_200"><a href="#">$45</a></div>
-						</div>
-					</div>
-				</div>
+                        </div>
+                    </div>
+                    <!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img style="object-fit: fill" src="{{ asset('HomePageFrontend/images/ccma.jpg') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://www.imanet.org/IMA-Certifications/CMA-Certification">Certified Management Accountant</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>Azero</li>
+                                        <li>Accounting Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>The CMA is a beneficial certification for...</p>
+                                </div>
+                            </div>
 
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_10.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Delegation Skills Training</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">Kartra</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Delegation Skills Training...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark course_free trans_200"><a href="#">Free</a></div>
-						</div>
-					</div>
-				</div>
+                        </div>
+                    </div>
 
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_11.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Communication Skills</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">Academy of Mine</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Communication Skills...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark course_free trans_200"><a href="#">Free</a></div>
-						</div>
-					</div>
-				</div>
+                    <!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img style="object-fit: fill" src="{{ asset('HomePageFrontend/images/hrm.png') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://www.mishrm.org/Resources/Certification">Human Resource Management</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>SHRM</li>
+                                        <li>HR Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>
+                                        Being a leader in the human...</p>
+                                </div>
+                            </div>
 
-				<!-- Course -->
-				<div class="col-lg-4 course_col">
-					<div class="course">
-						<div class="course_image"><img src="{{ asset('HomePageFrontend/images/course_12.jpg') }}" alt=""></div>
-						<div class="course_body">
-							<div class="course_title"><a href="course.html">Leadership Training</a></div>
-							<div class="course_info">
-								<ul>
-									<li><a href="instructors.html">Systeme.io</a></li>
-									<li><a href="#">Self Improving</a></li>
-								</ul>
-							</div>
-							<div class="course_text">
-								<p>Leadership Training...</p>
-							</div>
-						</div>
-						<div class="course_footer d-flex flex-row align-items-center justify-content-start">
-							<div class="course_students"><i class="fa fa-user" aria-hidden="true"></i><span></span></div>
-							<div class="course_rating ml-auto"><i class="fa fa-star" aria-hidden="true"></i><span></span></div>
-							<div class="course_mark trans_200"><a href="#">$45</a></div>
-						</div>
-					</div>
-				</div>
+                        </div>
+                    </div>
+
+                    <!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img style="object-fit: fill" src="{{ asset('HomePageFrontend/images/oopp.png') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://www.coursera.org/learn/wharton-operations">Operations Management</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>MGMA</li>
+                                        <li>Operations Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>Operations Management Certificate preparing...</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img src="{{ asset('HomePageFrontend/images/meno.jpg') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://www.ciobacademy.org/course/level-4-site-management-certificate/">Management CIOB</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>CIOB</li>
+                                        <li>Management Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>Have an exceptional experience...</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div><!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img style="object-fit: fill" src="{{ asset('HomePageFrontend/images/agile.jpeg') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://www.atatus.com/glossary/agile-methodology/">Agile Methodology</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>Software Sparks</li>
+                                        <li>Management Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>
+                                        Dealing with rappid development...</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img style="object-fit: fill" src="{{ asset('HomePageFrontend/images/sales.jpg') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://seec.schulich.yorku.ca/program/certificate-in-sales-management/">Sales Management</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>YORK</li>
+                                        <li>Sales Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>Increasing your sales skills...</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Course -->
+                    <div class="col-lg-4 course_col">
+                        <div class="course">
+                            <div class="course_image"><img style="object-fit: fill" src="{{ asset('HomePageFrontend/images/flutter.png') }}" alt=""></div>
+                            <div class="course_body">
+                                <div class="course_title"><a target="_blank" href="https://www.toptal.com/flutter/flutter-tutorial">Flutter</a></div>
+                                <div class="course_info">
+                                    <ul>
+                                        <li>Toptal</li>
+                                        <li>IT Category</li>
+                                    </ul>
+                                </div>
+                                <div class="course_text">
+                                    <p>let's develop a mobile aaplication that...</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
 
 			</div>
 
@@ -346,63 +307,61 @@
 	</div>
 
 	<!-- Footer -->
-	
 
 
-	<footer class="footer">
-		<div class="footer_body">
-			<div class="container">
-				<div class="row">
+<footer class="footer">
+    <div class="footer_body">
+        <div class="container">
+            <div class="row">
 
-					<!-- Newsletter -->
-					<div class="col-lg-3 footer_col">
-						<div class="newsletter_container d-flex flex-column align-items-start justify-content-end">
-							<div class="footer_logo mb-auto"><a href="{{route('home.index')}}"><img src="{{ asset('HomePageFrontend/images/QaderLogo.png') }}"width="200" height="75" alt=""></a>
-							<p style="color:grey;">Qader is...</p>
-						</div>
-						</div>
-					</div>
+                <!-- Newsletter -->
+                <div class="col-lg-3 footer_col">
+                    <div class="newsletter_container d-flex flex-column align-items-start justify-content-end">
+                        <div class="footer_logo mb-auto"><a href="{{route('home.index')}}"><img src="{{ asset('HomePageFrontend/images/Qader-white.png') }}"width="200" height="75" alt=""></a>
+                            <p style="color:grey;">Qader can increase your employees skills level to follow the current requirements and specifications jobs.</p>
+                        </div>
+                    </div>
+                </div>
 
-							
-						
-				
 
-					<!-- About -->
-					<div class="col-lg-2 offset-lg-3 footer_col">
-						<div>
-							<div class="footer_title">About Us</div>
-							<ul class="footer_list">
-							<li><a href="{{route('home.index')}}">Home</a></li>
-							<li><a href="{{route('home.courses')}}">Courses</a></li>
-							<li><a href="{{route('home.InstitCompany')}}">InstituteCompany</a></li>
-							<li><a href="{{route('home.company')}}">Company</a></li>
-							</ul>
-						</div>
-					</div>
 
-					<!-- Help & Support -->
-					<div class="col-lg-2 footer_col">
-						<div class="footer_title">Location</div>
-						<p style="color:grey;"> Prince Turki Al Awal Riyadh, Saudi Arabia</p>
-					</div>
 
-					<!-- Privacy -->
-					<div class="col-lg-2 footer_col clearfix">
-						<div>
-							<div class="footer_title">Contact information</div>
-							<ul class="footer_list">
-								<li><p style="color:grey;">Phone:0571593478</p></li>
-								<li><p style="color:grey;">Email:Qader@gmail.com </p></li>
-								<li><p style="color:grey;">Tel:2648921</p></li>
-							</ul>
-						</div>
-					</div>
 
-				</div>
-			</div>
-		</div>
-		
-	</footer>
+                <!-- About -->
+                <div class="col-lg-2 offset-lg-3 footer_col">
+                    <div>
+                        <div class="footer_title">Pages</div>
+                        <ul class="footer_list">
+                            <li><a href="{{route('home.index')}}">Home</a></li>
+                            <li><a href="{{route('home.courses')}}">Courses</a></li>
+                            <li><a href="{{route('home.InstitCompany')}}">Institutions</a></li>
+                            <li><a href="{{route('home.company')}}">Partners</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Help & Support -->
+                <div class="col-lg-2 footer_col">
+                    <div class="footer_title">Location</div>
+                    <p style="color:grey;"> Prince Turki Al-Awal, Riyadh, Saudi Arabia</p>
+                </div>
+
+                <!-- Privacy -->
+                <div class="col-lg-2 footer_col clearfix">
+                    <div>
+                        <div class="footer_title">Contact information</div>
+                        <ul class="footer_list">
+                            <li><p style="color:grey;">+966 11 928 392</p></li>
+                            <li><p style="color:grey;">HR@Qader.com </p></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</footer>
 </div>
 
 <script src="{{ asset('HomePageFrontend/js/jquery-3.2.1.min.js') }}"></script>
