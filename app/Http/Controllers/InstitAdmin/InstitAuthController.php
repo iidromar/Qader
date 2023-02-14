@@ -26,6 +26,7 @@ class InstitAuthController extends Controller
         // login code
 
         if(\Auth::attempt($request->only('email','password'))){
+            session()->flash('Add', 'Login Successfully.');
 
                 $courses = Course::where('creator', Auth::user()->id)->get();
                 $maid = 0;
@@ -118,6 +119,7 @@ class InstitAuthController extends Controller
         // login user here
 
         if(\Auth::attempt($request->only('email','password'))){
+            session()->flash('Add', 'Registered Successfully.');
 
             $courses = Course::where('creator', Auth::user()->id)->get();
             $maid = 0;

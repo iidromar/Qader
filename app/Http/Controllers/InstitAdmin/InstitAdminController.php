@@ -11,8 +11,9 @@ use App\Models\course;
 use App\Models\lesson;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+
 use Illuminate\Support\Facades\Storage;
 
 class InstitAdminController extends Controller
@@ -114,7 +115,8 @@ class InstitAdminController extends Controller
                 'names.*'=>[ 'required' , 'string'],
                 'descriptions'=>[ 'required' , 'array'],
                 'descriptions.*'=>[ 'required' , 'string'],
-
+                'file'=>[ 'required' , 'array'],
+                'file.*'=>[ 'required' , 'mimes:mp4'],
             ]);
         }
         else{
@@ -218,7 +220,7 @@ class InstitAdminController extends Controller
                 $condition = $data['names'];
                 foreach($condition as $key => $condition){
                     if(!empty($condition)){
-                        if( isset($data['file'])){
+                        if( isset($data['file'][$key])){
                             $videoName= $data['file'][$key];
                             $videoPath=public_path('/storage/instit/courses');
                             if(File::exists($videoPath . $videoName)){

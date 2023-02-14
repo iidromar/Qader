@@ -14,6 +14,9 @@
                             <div class="col-12">
                                 <div class="alert alert-success" role="alert">
                                     {{ session('status') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -21,7 +24,7 @@
 
                     <form method="POST" action="{{ route('client.test.store') }}">
                         @csrf
-                     
+
                             <div class="card mb-3">
                                 <div class="card-header">{{ $quiz->name }}</div>
                                 <input type="hidden" name="course_id" value="{{ $quiz->course->id }}">
@@ -29,7 +32,7 @@
                                     @foreach($questions as $question)
                                         <div class="card @if(!$loop->last)mb-3 @endif">
                                             <div class="card-header">{{ $question->question_text }}</div>
-                        
+
                                             <div class="card-body">
                                                 <input type="hidden" name="questions[{{ $question->id }}]" value="">
                                                 @foreach($question->questionOptions as $option)
@@ -51,7 +54,7 @@
                                     @endforeach
                                 </div>
                             </div>
-                
+
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6">

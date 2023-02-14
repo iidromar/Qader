@@ -99,8 +99,9 @@ class QuestionController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(Request $request)
     {
+        $id = $request->eee;
         $quiz=quiz::find($id);
         $courses = DB::table('courses')->where('creator', Auth::user()->id)->get();
         $questions=question::where('quiz_id' , $id)->get();

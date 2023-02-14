@@ -48,13 +48,18 @@
                                 <td>{{ $quiz->course->name }}</td>
                                 <td>{{ $quiz->name }}</td>
                                 <td>
-                                    <div class="btn-group btn-group-sm">
-                                        <a href="{{route('edit.question' ,$quiz->id)}}" class="btn btn-info">
-                                            <i class="fa fa-pencil-alt"></i>
-                                        </a>
-                                        <a class="dropdown-item btn bg-danger text-white" href="{{route('delete.question' ,$quiz->id)}}" data-toggle="modal" data-target="#deleteModal" style="border-top-left-radius: 0;border-bottom-left-radius: 0;">
+                                    <div class="row">
+                                        <form action="{{ route('edit.question') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" value="{{ $quiz->id }}" id="eee" name="eee">
+                                            <button type="submit" class="btn btn-info" style="margin-left: 10px">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </button>
+                                        </form>
+
+                                        <button type="button" class="me-2 btn bg-danger text-white" href="{{route('delete.question' ,$quiz->id)}}" data-toggle="modal" data-target="#deleteModal" style="margin-left: 20px">
                                                 <i class="fa fa-trash"></i>
-                                        </a>
+                                        </button>
 {{--                                        <form onclick="return confirm('are you sure ? ')" class="d-inline" action="" method="POST">--}}
 {{--                                        @method('Delete')--}}
 {{--                          @csrf--}}

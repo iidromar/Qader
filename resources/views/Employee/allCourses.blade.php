@@ -29,7 +29,11 @@
                                     </p>
                                     <div class="progress" style="width: 25%;">
                                         @php
-                                            $presentage = ($event['progNum'] /$event['lessonNum']) *100;
+                                            $presentage = 0;
+                                            if($event['lessonNum'] != 0){
+                                                $presentage = ($event['progNum'] /$event['lessonNum']) *100;
+                                            }
+
                                         @endphp
 
                                         <div class="progress-bar" role="progressbar" style="width: <?= $presentage; ?>%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{$presentage}}% </div>

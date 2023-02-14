@@ -27,6 +27,7 @@ class EmployeeAuthController extends Controller
         // login code
 
         if(\Auth::attempt($request->only('email','password'))){
+            session()->flash('Add', 'Login Successfully.');
 
             $courses = DB::table('course_taken_by')->where('employee_id', Auth::user()->id)->get();
             $data = new Collection();

@@ -9,7 +9,7 @@
 
     <!-- Page Heading -->
     @if($errors->any())
-        <div class="alert alert-danger">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <ul>
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -97,7 +97,7 @@
                       @endif
                       <div class="lesson-content" ></div>
                       <div class="form-group">
-                      <h1><a class='btn btn-primary' id="addfield" href="add-new-form">+Add a question</a></h1>
+                      <h1><a class='btn btn-primary' id="addfield" href="add-new-form">+ Add a question</a></h1>
                       </div>
                     <button type="submit" class="btn btn-primary btn-block">{{ __('Save')}}</button>
                 </form>
@@ -108,6 +108,8 @@
     <!-- Content Row -->
 
 </div>
+
+@endsection
 
 @section('scripts')
   <script>
@@ -176,5 +178,5 @@ $(function () {
   @endsection
 
 
-@endsection
+
 @endcan

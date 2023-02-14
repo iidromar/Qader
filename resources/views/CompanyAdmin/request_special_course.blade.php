@@ -4,6 +4,9 @@
         @if(session()->has('Add'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ session()->get('Add') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
         @if(session()->has('Error'))
@@ -62,7 +65,7 @@
 
                                 <div class="col">
                                     <label>Receiveing Deadline</label>
-                                    <input class="form-control " name="deadline_Date" placeholder="YYYY-MM-DD"
+                                    <input class="form-control " name="deadline_Date" min="{{ date("Y-m-d") }}" placeholder="YYYY-MM-DD"
                                            type="date" value="" required>
                                 </div>
 
@@ -72,7 +75,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="inputName" class="control-label">Course title:</label>
-                                    <input type="text" class="form-control" id="title" name="title" value="">
+                                    <input type="text" class="form-control" id="title" name="title" value="" required>
                                 </div>
                             </div>
                             {{-- 4 --}}
@@ -80,7 +83,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="inputName" class="control-label">Course Description:</label>
-                                    <input type="text" class="form-control" id="desc" name="desc" value="" >
+                                    <input type="text" class="form-control" id="desc" name="desc" value="" required>
                                 </div>
                             </div>
                             <br>

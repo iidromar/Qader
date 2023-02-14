@@ -192,9 +192,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="panel-content">
-                                                        @if(sizeof($results)==0)
+                                                        @if(sizeof($results)==0 && sizeof($quiz)!=0)
                                                             <div class="panel-content-inner"> <a class="btn btn-primary" id="quizbtn"  href="{{route('client.test' ,$courses->id)}}" >Start Quiz</a></div>
-                                                        @elseif(sizeof($results)>0)
+                                                        @elseif(sizeof($results)>0 && sizeof($quiz) !=0)
                                                             <div class="panel-content-inner">You Already Took The Quiz</div>
                                                     @else
                                                         <div class="panel-content-inner">No Quiz</div>

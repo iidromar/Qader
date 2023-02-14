@@ -221,8 +221,14 @@ class CompanyAdminController extends Controller
        return json_encode($price);
    }
    public function new_training_req(Request $request, $id=null){
-       $rr = $request->all();
        $c = DB::table('courses')->where('name', $request->hiddenOneValue)->first();
+       $tesst = DB::table('course_taken_by')->where('employee_id', $id)->where('course_id', $c->id)->get()->first();
+       if($tesst){
+           $employee = User::find($id);
+           $options = Course::getPossibleCategories();
+           session()->flash('Error', 'Employee Already taking this course.');
+           return view('CompanyAdmin.give_training', compact('employee', 'options'));       }
+       $rr = $request->all();
        DB::table('course_taken_by')->insert(
           array('employee_id' => $id, 'course_id' => $c->id, 'progress' => 0, 'deadline' => $request->deadline_Date, 'created_at' => now())
        );

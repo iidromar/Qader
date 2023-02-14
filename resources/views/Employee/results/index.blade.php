@@ -12,29 +12,28 @@
         <div class="card">
             <div class="card-header py-3 d-flex">
                 <h6 class="m-0 font-weight-bold text-primary">
-                    {{ __('result') }}
+                    Results
                 </h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover datatable datatable-result" cellspacing="0" width="100%">
+                    <table id="example" class="table key-buttons text-md-nowrap">
                         <thead>
-                            <tr>
-                                <th width="10">
+                        <tr>
+                            <th class="border-bottom-0">No</th>
+                            <th class="border-bottom-0">User</th>
+                            <th class="border-bottom-0">Points</th>
+                            <th class="border-bottom-0">Course Name</th>
+                            <th class="border-bottom-0">Action</th>
 
-                                </th>
-                                <th>No</th>
-                                <th>User</th>
-                                <th>Points</th>
-                                <th>Course Name</th>
-                                <th>Action</th>
-                            </tr>
+                        </tr>
+
                         </thead>
                         <tbody>
                             @forelse($results as $result)
                             <tr data-entry-id="{{ $result->id }}">
-                                <td>
-                                </td>
+
+
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $result->user->name }}</td>
                                 <td>{{ $result->total_points }} Out Of {{count($result->questions)}}</td>
@@ -59,6 +58,9 @@
                             </tr>
                             @endforelse
                         </tbody>
+                        <tfoot>
+
+                        </tfoot>
                     </table>
                 </div>
             </div>

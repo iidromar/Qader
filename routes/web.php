@@ -115,7 +115,7 @@ Route::post('/changePasswordSendingEmployee', [EmployeeController::class, 'chang
 Route::get('/allQuestion', [QuestionController::class , 'index'])->name('course.question');
 Route::get('/createQuestion', [QuestionController::class , 'create'])->name('create.question');
 Route::post('/storeQuestion', [QuestionController::class , 'store'])->name('store.question');
-Route::get('/editQuestion/{id}', [QuestionController::class , 'edit'])->name('edit.question');
+Route::post('/editQuestion', [QuestionController::class , 'edit'])->name('edit.question');
 Route::PUT('/updateQuestion/{id}' , [QuestionController::class , 'update'])->name('update.question');
 Route::delete('/deleteQuestion/{id}' ,  [QuestionController::class , 'destroy'])->name('delete.question');
 

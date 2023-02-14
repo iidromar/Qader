@@ -131,7 +131,7 @@ class EmployeeController extends Controller
                 'state' => $progress->state
             ];
         }
-        return view('Employee.courseDetails' , compact('courses' , 'lessons' , 'results' ,'creatorName' , 'prog') );
+        return view('Employee.courseDetails' , compact('courses' , 'quiz', 'lessons' , 'results' ,'creatorName' , 'prog') );
     }
     public function employeeResult()
     {

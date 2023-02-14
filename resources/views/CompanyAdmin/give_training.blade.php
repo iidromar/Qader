@@ -4,6 +4,9 @@
         @if(session()->has('Add'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ session()->get('Add') }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
         @if(session()->has('Error'))
@@ -61,7 +64,7 @@
 
                                 <div class="col">
                                     <label>Deadline</label>
-                                    <input class="form-control " name="deadline_Date" placeholder="YYYY-MM-DD"
+                                    <input class="form-control " name="deadline_Date" min="{{ date("Y-m-d") }}" placeholder="YYYY-MM-DD"
                                            type="date" value="" required>
                                 </div>
 
@@ -198,13 +201,13 @@
                             <div class="form-container" >
                                 <div class="field-container">
                                     <label for="name">Name</label>
-                                    <input id="name" maxlength="20" type="text">
+                                    <input id="name" maxlength="20" type="text" required>
                                 </div>
 
                                 <div class="field-container">
                                     <br>
                                     <label for="cardnumber">Card Number</label><span id="generatecard">generate random</span>
-                                    <input id="cardnumber" type="text" inputmode="numeric">
+                                    <input id="cardnumber" type="text" inputmode="numeric" required>
                                     <br>
                                     <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                          xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -214,13 +217,13 @@
                                     <br>
                                     <br>
                                     <label for="expirationdate">Expiration (mm/yy)</label>
-                                    <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric" >
                                 </div>
                                 <div class="field-container">
                                     <br>
                                     <br>
                                     <label for="securitycode">Security Code</label>
-                                    <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
+                                    <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" required>
                                 </div>
                             </div>
                             <br>

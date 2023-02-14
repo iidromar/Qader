@@ -25,7 +25,7 @@
                     @csrf
                     @method('POST')
                     @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -56,7 +56,7 @@
 
                       <div class="form-group">
                         <label for="exampleInputName1">Course date</label>
-                        <input type="date"  name="course_date" class="form-control" id="exampleInputName1" >
+                        <input type="date"  name="course_date" class="form-control" id="exampleInputName1" min="{{ date("Y-m-d") }}">
                       </div>
                         <div class="form-group">
                             <label for="exampleInputName1">Price</label>

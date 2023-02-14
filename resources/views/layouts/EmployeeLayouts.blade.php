@@ -119,11 +119,11 @@
         <!-- Main Content -->
         <div id="content">
             @if (session('search_status'))
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('search_status') }}
                 </div>
             @elseif (session('search_error'))
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('search_error') }}
                 </div>
             @endif
@@ -275,6 +275,7 @@
     <!-- Page level custom scripts -->
     <script src="../../CompanyAdminFrontend/js/demo/chart-area-demo.js"></script>
     <script src="../../CompanyAdminFrontend/js/demo/chart-pie-demo.js"></script>
+
 @yield('scripts')
 
 </body>
