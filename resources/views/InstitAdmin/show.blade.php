@@ -59,7 +59,7 @@
 										<div class="info">
 											<span class="label">Teacher</span>
 											<div class="value">
-												<a href="single-teacher.ht">{{auth()->user()->name}}</a>
+												<a href="#">{{auth()->user()->name}}</a>
 											</div>
 										</div>
 									</div>
@@ -76,7 +76,11 @@
                                     <div class="info">
 											<span class="label">Lessons</span>
 											<div class="value">
-												<a href="#"></a>
+                                                @if($lessons)
+                                                    <a href="#">{{count($lessons)}} Lessons</a>
+                                                @else
+                                                    <a href="#">0 Lesson</a>
+                                                @endif
 											</div>
 										</div>
 									</div>

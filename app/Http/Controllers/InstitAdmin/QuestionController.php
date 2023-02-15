@@ -46,6 +46,11 @@ class QuestionController extends Controller
             'Quiz_name'=>['required' , 'string','max:255'],
 
         ]);
+        $test=quiz::where('course_id',$request->course_id)->get();
+        if(sizeof($test)!=0){
+            $request->Session()->flash('alert-success' , 'Quiz for this course already exist');
+            return redirect('/allQuestion');
+        }
 
         $quiz=quiz::create([
             'course_id'=>$request->course_id,

@@ -7,6 +7,15 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
+    @if(Session::has('alert-success'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Fail! </strong>{{Session::get('alert-class', 'The quiz for this course already exist') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
 
 
     <!-- Content Row -->
