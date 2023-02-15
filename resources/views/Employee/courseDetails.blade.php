@@ -195,7 +195,8 @@
                                                 <div class="panel-content">
 
                                                         @if(sizeof($results)==0 && sizeof($quiz)!=0)
-                                                            <div class="panel-content-inner"> <a class="btn btn-primary" id="quizbtn"  href="{{route('client.test' ,$courses->id)}}" >Start Quiz</a></div>
+                                                        <div class="panel-content-inner" id="already_taken">Please finish the lessons before taking the quiz</div>
+                                                        <div class="panel-content-inner"> <a class="btn btn-primary" id="quizbtn" style="display:none;" href="{{route('client.test' ,$courses->id)}}" >Start Quiz</a></div>
                                                         @elseif(sizeof($results)>0 && sizeof($quiz) !=0)
                                                             <div class="panel-content-inner">You Already Took The Quiz</div>
                                                     @else
@@ -266,6 +267,28 @@
                     var prog = @json($prog);
                     console.log(prog.length);
                     var lastSpan = document.getElementById("lastSpan").dataset.important;
+                    var intLastSpan=parseInt(lastSpan);
+                    var progLength=prog.length;
+                    if(intLastSpan==progLength){
+                        document.getElementById("quizbtn").style.display="block";
+                        document.getElementById("already_taken").style.display="none";
+                        document.getElementById("quizbtn").style.width="13%";
+                    }
+                    document.getElementById(intLastSpan-1).onclick = function(){
+                        document.getElementById("quizbtn").style.display="block";
+                        document.getElementById("already_taken").style.display="none";
+                        document.getElementById("quizbtn").style.width="13%";
+                    }
+                    console.log(intLastSpan==progLength);
+                    for (let i = 0; i < prog.length; i++) {
+                        var lessonId1 = document.getElementById("lessonId"+i).dataset.important;
+                        var empId1 = document.getElementById("empId"+i).dataset.important;
+                        var courseId1 = document.getElementById("courseId").dataset.important;
+                        if(prog[i]['empId']==empId1 && prog[i]['courseId']==courseId1 && prog[i]['lessonId']==lessonId1){
+                            document.getElementById(i).disabled = false;
+                            document.getElementById(i+1).disabled = false;
+                        }
+                    }
                     for (let i = 0; i < prog.length; i++) {
                         var lessonId1 = document.getElementById("lessonId"+i).dataset.important;
                         var empId1 = document.getElementById("empId"+i).dataset.important;
