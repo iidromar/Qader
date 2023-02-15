@@ -151,3 +151,13 @@ Route::get('/showEmployeeResult/{id}', [EmployeeController::class , 'showResult'
 
 
 Route::post('/progress', [EmployeeController::class, 'progressStore'])->name('progress.store');
+
+
+Route::get('/forgotpasswordEmployees', [EmployeeController::class, 'forgot_passwords'])->name('forgotpasswordEmployees');
+Route::get('/forgotpasswordInstits', [InstitAdminController::class, 'forgot_passwords'])->name('forgotpasswordInstits');
+Route::get('/forgotpasswordCompanys', [CompanyAdminController::class, 'forgot_passwords'])->name('forgotpasswordCompanys');
+
+Route::post('/forgotpasswordEmployee', [EmployeeController::class, 'forgot_password'])->name('forgotpasswordEmployee');
+Route::post('/forgotpasswordInstit', [InstitAdminController::class, 'forgot_password'])->name('forgotpasswordInstit');
+Route::post('/forgotpasswordCompany', [CompanyAdminController::class, 'forgot_password'])->name('forgotpasswordCompany');
+

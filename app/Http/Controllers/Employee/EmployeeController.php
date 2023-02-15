@@ -211,6 +211,12 @@ class EmployeeController extends Controller
         }
 
     }
+    public function forgot_password(){
+        return back()->with("forgot_success", "Dear Employee, A link has been sent to your email successfully!");
+    }
+    public function forgot_passwords(){
+        return view('Employee.forgotPassword');
+    }
 
 
 

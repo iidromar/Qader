@@ -335,5 +335,11 @@ class CompanyAdminController extends Controller
         }
         return back()->with("search_error", "Can't find any Employee!");
     }
+    public function forgot_password(){
+        return back()->with("forgot_success", "Dear Company Admin, A link has been sent to your email successfully!");
+    }
+    public function forgot_passwords(){
+        return view('CompanyAdmin.forgotPassword');
+    }
 
 }

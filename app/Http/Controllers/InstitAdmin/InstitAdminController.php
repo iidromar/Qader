@@ -376,4 +376,10 @@ class InstitAdminController extends Controller
 
         return back()->with("status", "Password changed successfully!");
     }
+    public function forgot_password(){
+        return back()->with("forgot_success", "Dear Institution Admin, A link has been sent to your email successfully!");
+    }
+    public function forgot_passwords(){
+        return view('InstitAdmin.forgotPassword');
+    }
 }
