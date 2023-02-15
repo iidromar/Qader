@@ -41,7 +41,7 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
             <div class="sidebar-brand-icon">
-                <img id="QaderLogoSideBar" src="{{ asset('HomePageFrontend/img/QaderLogo.png') }}" alt="" height="80" width="200"/>
+                <img id="QaderLogoSideBar" src="{{ asset('HomePageFrontend/images/Qader-white.png') }}" alt="" height="80" width="200"/>
             </div>
 
         </a>
@@ -121,11 +121,18 @@
             @if (session('search_status'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('search_status') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             @elseif (session('search_error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     {{ session('search_error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
             @endif
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -212,15 +219,7 @@
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+
 
         </div>
         <!-- End of Content Wrapper -->

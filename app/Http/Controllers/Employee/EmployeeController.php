@@ -144,18 +144,12 @@ class EmployeeController extends Controller
         return view('Employee.results.show', compact('result'));
     }
     public function searchEngineEE(Request $request){
-        $course = Course::where('name','LIKE',"%{$request->search}%");
-        if($course == null){
-            return back()->with("search_error", "Can't find any Course!");
-        }
-        $cc = $course->first();
-        $temp = DB::table('course_taken_by')->where('employee_id', Auth::user()->id)->where('course_id', $cc->id)->get();
-        if(!$temp){
-            return back()->with("search_error", "Can't find any Course!");
-        }
-        $temp_2 = $temp->first();
-        if($temp_2){
-                return redirect()->route('employee.courseDetails', ['id' => $temp_2->id]);
+        $course = DB::table('courses')->where('name','LIKE',"%{$request->search}%")->get()->first();
+        if($course){
+            $temp = DB::table('course_taken_by')->where('employee_id', Auth::user()->id)->where('course_id', $course->id)->get();
+            if ($temp){
+                return redirect()->route('employee.courseDetails', ['id' => $course->id]);
+            }
         }
         return back()->with("search_error", "Can't find any Course!");
     }
@@ -212,7 +206,7 @@ class EmployeeController extends Controller
                 'state' => $check->state,
                 'empId' => $check->employee_id,
                 'lessonId' => $check->lesson_id,
-                'courseId'=>$check->courseId
+                'courseId'=>$check->courseId,
             ]);
         }
 

@@ -180,15 +180,15 @@ $(function () {
         $('<h5>Lesson ' + (duplicates + 1) + '</h5>'+
         ' <div class="form-group">'+
         '<label for="exampleInputName1">Title</label>'+
-        '<input type="text" name="title[]" class="form-control" id="exampleInputName1" placeholder="Title">'+
+        '<input type="text" name="title[]" class="form-control" id="exampleInputName1" placeholder="Title" required>'+
         ' </div>'+
         ' <div class="form-group">'+
         '<label for="exampleTextarea1">Description</label>'+
-        '<textarea class="form-control" name="des[]" id="exampleTextarea1" placeholder="Description" rows="4"></textarea>'+
+        '<textarea class="form-control" name="des[]" id="exampleTextarea1" placeholder="Description" rows="4"></textarea required>'+
         ' </div>'+
         ' <div class="form-group">'+
         '<label for="exampleInputName1">Video</label>'+
-        '<input type="file" class="form-control" name="files[]" id="exampleInputName1" placeholder="Video">'+
+        '<input type="file" class="form-control" name="files[]" id="exampleInputName1" placeholder="Video" required>'+
         ' </div>'
         ).insertBefore(newForm);
 

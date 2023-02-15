@@ -27,7 +27,7 @@
                                     <th class="border-bottom-0">Percentage Done</th>
                                     <th class="border-bottom-0">Deadline</th>
                                     <th class="border-bottom-0">Price</th>
-                                    <th class="border-bottom-0">Actions</th>
+                                    <th class="border-bottom-0">Notes</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -39,12 +39,11 @@
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $r->name }}</td>
                                         <td>{{ $time[$c] }}</td>
-                                        <td>{{ ($progress[$c]/$lesson[$c])*100}}%</td>
+                                        <td>{{ $lesson[$c] == 0 ? '0': ($progress[$c]/$lesson[$c])*100  }}%</td>
                                         <td>{{ $deadline[$c] }}</td>
                                         <td>{{ $r->price }}</td>
 
                                         <td>
-                                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">View</a>
                                         </td>
 
                                     </tr>

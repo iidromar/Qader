@@ -303,7 +303,8 @@ class InstitAdminController extends Controller
         return view('InstitAdmin.course_requested', compact('temp', 'names'));
     }
 
-    public function accepting_course($id=null){
+    public function accepting_course(Request $request){
+        $id = $request->accepttt;
         DB::table('course_requested')->where('id', $id)->update([
             'accepted' => '1',
             'accepted_date' => now(),
@@ -321,7 +322,8 @@ class InstitAdminController extends Controller
         }
         return view('InstitAdmin.course_requested', compact('temp', 'names'));
     }
-    public function rejecting_course($id=null){
+    public function rejecting_course(Request $request){
+        $id = $request->rejecttt;
         DB::table('course_requested')->where('id', $id)->update([
             'accepted' => '2',
             'accepted_date' => now(),

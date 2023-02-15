@@ -13,7 +13,7 @@
 
                         <div class="row no-gutters">
                             <div class="col-md-4">
-                                <img src="{{ asset('HomePageFrontend/images/course_'.($loop->index+1).'.jpg') }}" alt="Bootstrap Tamil cyberdude"
+                                <img src="{{ asset('HomePageFrontend/images/sample.png') }}" alt="Bootstrap Tamil cyberdude"
                                      class="card-img h-100" />
                             </div>
                             <div class="col-md-8">

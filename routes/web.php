@@ -63,8 +63,8 @@ Route::get('/Instit/showCourse/{id}', [InstitAdminController::class , 'show'])->
 Route::delete('delete/course/{id}' ,  [InstitAdminController::class , 'destroy'])->name('course.destroy');
 Route::delete('delete/lesson/{id}' ,  [InstitAdminController::class , 'destroyLesson'])->name('lesson.destroy');
 Route::get('/courses_requests', [InstitAdminController::class, 'courses_requests'])->name('courses_requests');
-Route::get('/accepting_course/{id?}', [InstitAdminController::class, 'accepting_course'])->name('accepting_course');
-Route::get('/rejecting_course/{id?}', [InstitAdminController::class, 'rejecting_course'])->name('rejecting_course');
+Route::post('/accepting_course', [InstitAdminController::class, 'accepting_course'])->name('accepting_course');
+Route::post('/rejecting_course', [InstitAdminController::class, 'rejecting_course'])->name('rejecting_course');
 Route::post('/searchEngineCourse', [InstitAdminController::class, 'searchEngine'])->name('searchEngineCourse');
 Route::get('/Institprofile', [InstitAdminController::class, 'Institprofile'])->name('Institprofile');
 Route::get('/changePasswordInstit', [InstitAdminController::class, 'changePassword'])->name('changePasswordInstit');

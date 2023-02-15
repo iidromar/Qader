@@ -62,8 +62,22 @@
                                         <td>{{ $t->created_at }}</td>
                                         <td>{{ $t->receive_date }}</td>
                                         <td>
-                                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{ route('accepting_course', ['id'=> $t->id]) }}">Accept</a>
-                                            <a class="modal-effect btn btn-outline-danger btn-block" data-effect="effect-scale" href="{{ route('rejecting_course', ['id' => $t->id]) }}">Reject</a>
+                                            <form action="{{ route('accepting_course') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" value="{{ $t->id }}" id="accepttt" name="accepttt">
+                                                <button type="submit" class="modal-effect btn btn-outline-primary btn-block" style="margin-bottom: 20px">
+                                                    Accept
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('rejecting_course') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" value="{{ $t->id }}" id="rejecttt" name="rejecttt">
+                                                <button type="submit" class="modal-effect btn btn-outline-danger btn-block" >
+                                                    Reject
+                                                </button>
+                                            </form>
+{{--                                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{ route('accepting_course', ['id'=> $t->id]) }}">Accept</a>--}}
+{{--                                            <a class="modal-effect btn btn-outline-danger btn-block" data-effect="effect-scale" href="{{ route('rejecting_course', ['id' => $t->id]) }}">Reject</a>--}}
                                         </td>
                                         <td>
                                             {{ $t->description }}

@@ -60,7 +60,7 @@
                                                 <div class="info">
                                                     <span class="label">Teacher</span>
                                                     <div class="value">
-                                                        <a href="single-teacher.html">{{$creatorName[0]['creator']}}</a>
+                                                        <a href="">{{$creatorName[0]['creator']}}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -71,7 +71,7 @@
                                                 <div class="info">
                                                     <span class="label">Category</span>
                                                     <div class="value">
-                                                        <a href="#">{{$courses->category}} </a>
+                                                        <a href="">{{$courses->category}} </a>
 
                                                     </div>
                                                 </div>
@@ -94,7 +94,7 @@
                                             </div>
                                         </div>
                                         <div class="course-single-gallery">
-                                            <img src="{{ asset('HomePageFrontend/images/course_1.jpg') }}" alt="">
+                                            <img src="{{ asset('HomePageFrontend/images/sample.png') }}" alt="">
                                         </div>
 
                                     </div>
@@ -170,6 +170,7 @@
                                                 <span data-important="{{$lessonId}}" id="lessonId{{$loop->index}}"></span>
                                                 <span data-important="{{$empId}}" id="empId{{$loop->index}}"></span>
                                                 <span data-important="{{sizeof($lessons)}}" id="lastSpan"></span>
+
                                                 <!-- end course section -->
                                             @endforeach
                                         @endif
@@ -192,6 +193,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="panel-content">
+
                                                         @if(sizeof($results)==0 && sizeof($quiz)!=0)
                                                             <div class="panel-content-inner"> <a class="btn btn-primary" id="quizbtn"  href="{{route('client.test' ,$courses->id)}}" >Start Quiz</a></div>
                                                         @elseif(sizeof($results)>0 && sizeof($quiz) !=0)
@@ -343,6 +345,7 @@
                         });
 
                         $vid.addEventListener("pause", e => console.log('pause'));
+
 
                     }
 

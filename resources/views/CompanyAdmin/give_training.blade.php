@@ -217,7 +217,7 @@
                                     <br>
                                     <br>
                                     <label for="expirationdate">Expiration (mm/yy)</label>
-                                    <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric" >
+                                    <input id="expirationdate" type="text" pattern="[0-9/]*" inputmode="numeric" >
                                 </div>
                                 <div class="field-container">
                                     <br>

@@ -335,4 +335,5 @@ class CompanyAdminController extends Controller
         }
         return back()->with("search_error", "Can't find any Employee!");
     }
+
 }
